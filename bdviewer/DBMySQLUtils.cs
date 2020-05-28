@@ -10,11 +10,11 @@ namespace bdviewer
     class DBMySQLUtils
     {
 
-        public static MySqlConnection GetDBConnection(string host, int port, string database, string username, string password)
+        public static MySqlConnection GetDBConnection(string host, int port, /*string database,*/ string username, string password)
         {
             // Connection String.
-            String connString = "Server=" + host + ";Database=" + database
-                + ";port=" + port + ";User Id=" + username + ";password=" + password;
+            //String connString = "Server=" + host + ";Database=" + database + ";port=" + port + ";User Id=" + username + ";password=" + password;
+            String connString = "Server=" + host + ";port=" + port + ";User Id=" + username + ";password=" + password;
 
             MySqlConnection conn = new MySqlConnection(connString);
 

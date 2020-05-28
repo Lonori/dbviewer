@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data.Common;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace bdviewer
 {
@@ -20,6 +14,8 @@ namespace bdviewer
         {
             FormConnect form = new FormConnect();
             bool connected = false;
+            string host;
+            int port;
             do
             {
                 form.ShowDialog();
@@ -33,15 +29,15 @@ namespace bdviewer
                     return;
                 }
 
-                string host = form.Hostname;
-                int port = 3306;
-                string database = "main";
+                host = form.Hostname;
+                port = 3306;
+                //string database = "main";
                 string username = form.Username;
                 string password = form.Password;
 
                 try
                 {
-                    conn = DBMySQLUtils.GetDBConnection(host, port, database, username, password);
+                    conn = DBMySQLUtils.GetDBConnection(host, port, /*database,*/ username, password);
                     conn.Open();
                     connected = true;
                 }
@@ -53,6 +49,8 @@ namespace bdviewer
             form.Dispose();
 
             InitializeComponent();
+            this.Text = host + ":" + port + " | DB Viewer";
+            Log("Соединение успешно установлено");
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -69,19 +67,13 @@ namespace bdviewer
             }
             catch (Exception error)
             {
-                MessageBox.Show(
-                     error.Message,
-                     "Ошибка",
-                     MessageBoxButtons.OK,
-                     MessageBoxIcon.Error,
-                     MessageBoxDefaultButton.Button1
-                );
+                ShowMessage(error.Message);
             }
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if(e.Action != TreeViewAction.Collapse && e.Action != TreeViewAction.Expand && e.Node.Parent == null)
+            if (e.Action != TreeViewAction.Collapse && e.Action != TreeViewAction.Expand && e.Node.Parent == null)
             {
                 MySqlCommand cmd = new MySqlCommand("SHOW TABLES FROM `" + e.Node.Text + "`", conn);
                 dataGridView1.Rows.Clear();
@@ -89,24 +81,19 @@ namespace bdviewer
 
                 using (DbDataReader reader = cmd.ExecuteReader())
                 {
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
-                        column.Name = reader.GetName(i);
-                        column.MinimumWidth = 400;
-                        dataGridView1.Columns.Add(column);
-                    }
                     while (reader.Read())
                     {
-                        string table_name = reader.GetString(0);
-                        dataGridView1.Rows.Add(new object[] { table_name });
+                        e.Node.Nodes.Add(reader.GetString(0));
                     }
+                    e.Node.Expand();
                 }
-                label1.Text = "true";
-            } else
+
+                Log("True");
+            }
+            else
             {
                 conn.ChangeDatabase(e.Node.Parent.Text);
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM `"+ e.Node.Text + "` WHERE 1 LIMIT 25", conn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM `" + e.Node.Text + "` WHERE 1 LIMIT 25", conn);
                 dataGridView1.Rows.Clear();
                 dataGridView1.Columns.Clear();
 
@@ -135,39 +122,40 @@ namespace bdviewer
                         dataGridView1.Rows.Add(row);
                     }
                 }
-                
-                label1.Text = "false";
+
+                Log("False");
             }
         }
 
         private void UpdateDBTree()
         {
             MySqlCommand cmd = new MySqlCommand("SHOW DATABASES", conn);
-            List<string> db_names = new List<string>();
 
             using (DbDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    db_names.Add(reader.GetString(0));
+                    treeView1.Nodes.Add(reader.GetString(0));
                 }
             }
+        }
 
-            for (int i = 0; i < db_names.Count; i++)
-            {
-                cmd = new MySqlCommand("SHOW TABLES FROM `" + db_names[i] + "`", conn);
-                TreeNode treeNode = new TreeNode(db_names[i]);
-                treeView1.Nodes.Add(treeNode);
+        private void ShowMessage(string message)
+        {
+            MessageBox.Show(
+                message,
+                "Ошибка",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1
+            );
+        }
 
-                using (DbDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string table_name = reader.GetString(0);
-                        treeNode.Nodes.Add(table_name);
-                    }
-                }
-            }
+        private void Log(string message)
+        {
+            DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss K");
+            log_label.Text += "[" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "] " + message + "\r\n";
+            log_panel.AutoScrollPosition = new Point(0, log_label.Height);
         }
     }
 }

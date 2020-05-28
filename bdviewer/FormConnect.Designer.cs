@@ -102,7 +102,7 @@
             this.connect.Name = "connect";
             this.connect.Size = new System.Drawing.Size(143, 42);
             this.connect.TabIndex = 3;
-            this.connect.Text = "Вперде";
+            this.connect.Text = "Вперед";
             this.connect.UseVisualStyleBackColor = false;
             this.connect.Click += new System.EventHandler(this.connect_Click);
             // 
