@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomTable.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +63,10 @@
     <Compile Include="FormConnect.Designer.cs">
       <DependentUpon>FormConnect.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMain.Listeners.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTables.cs" />
     <Compile Include="Mysqli.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
