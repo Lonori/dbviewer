@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Drawing;
 using System.Windows.Forms;
@@ -85,6 +86,7 @@ namespace bdviewer
         {
             ct_list.Clear();
             ct_create.Clear();
+            textbox_table_name.Text = "";
 
             for (int i = 0; i < panels2.Length; i++)
             {
@@ -113,9 +115,19 @@ namespace bdviewer
 
         private void Log(string message)
         {
-            DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss K");
             log_label.Text += "[" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "] " + message + "\r\n";
             log_panel.AutoScrollPosition = new Point(0, log_label.Height);
+        }
+
+        private string ListSqlStringJoin(List<string> list)
+        {
+            string tmp = "";
+            for (int i = 0; i < list.Count; i++)
+            {
+                tmp += "`" + list[i] + "`";
+                if (i < list.Count - 1) tmp += ",";
+            }
+            return tmp;
         }
     }
 }

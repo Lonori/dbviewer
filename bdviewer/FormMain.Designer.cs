@@ -40,9 +40,9 @@
             this.panel_table_create = new System.Windows.Forms.Panel();
             this.table_creator = new System.Windows.Forms.TableLayoutPanel();
             this.button_add_column = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_table_create = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textbox_table_name = new System.Windows.Forms.TextBox();
             this.panel_table_list = new System.Windows.Forms.Panel();
             this.table_tables = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -165,9 +165,9 @@
             this.panel_table_create.AutoScroll = true;
             this.panel_table_create.Controls.Add(this.table_creator);
             this.panel_table_create.Controls.Add(this.button_add_column);
-            this.panel_table_create.Controls.Add(this.button1);
+            this.panel_table_create.Controls.Add(this.button_table_create);
             this.panel_table_create.Controls.Add(this.label14);
-            this.panel_table_create.Controls.Add(this.textBox2);
+            this.panel_table_create.Controls.Add(this.textbox_table_name);
             this.panel_table_create.Location = new System.Drawing.Point(0, 28);
             this.panel_table_create.Margin = new System.Windows.Forms.Padding(0);
             this.panel_table_create.Name = "panel_table_create";
@@ -190,7 +190,6 @@
             this.table_creator.Name = "table_creator";
             this.table_creator.RowCount = 1;
             this.table_creator.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.table_creator.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.table_creator.Size = new System.Drawing.Size(702, 30);
             this.table_creator.TabIndex = 0;
             // 
@@ -208,18 +207,19 @@
             this.button_add_column.UseVisualStyleBackColor = false;
             this.button_add_column.Click += new System.EventHandler(this.button_add_column_Click);
             // 
-            // button1
+            // button_table_create
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(404, 4);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 0, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 32);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Создать";
-            this.button1.UseVisualStyleBackColor = false;
+            this.button_table_create.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button_table_create.FlatAppearance.BorderSize = 0;
+            this.button_table_create.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_table_create.Location = new System.Drawing.Point(404, 4);
+            this.button_table_create.Margin = new System.Windows.Forms.Padding(4, 4, 0, 4);
+            this.button_table_create.Name = "button_table_create";
+            this.button_table_create.Size = new System.Drawing.Size(96, 32);
+            this.button_table_create.TabIndex = 3;
+            this.button_table_create.Text = "Создать";
+            this.button_table_create.UseVisualStyleBackColor = false;
+            this.button_table_create.Click += new System.EventHandler(this.button_table_create_Click);
             // 
             // label14
             // 
@@ -231,14 +231,14 @@
             this.label14.TabIndex = 2;
             this.label14.Text = "Имя таблицы:";
             // 
-            // textBox2
+            // textbox_table_name
             // 
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Location = new System.Drawing.Point(132, 4);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 0, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(268, 32);
-            this.textBox2.TabIndex = 1;
+            this.textbox_table_name.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textbox_table_name.Location = new System.Drawing.Point(132, 4);
+            this.textbox_table_name.Margin = new System.Windows.Forms.Padding(4, 4, 0, 4);
+            this.textbox_table_name.Name = "textbox_table_name";
+            this.textbox_table_name.Size = new System.Drawing.Size(268, 32);
+            this.textbox_table_name.TabIndex = 1;
             // 
             // panel_table_list
             // 
@@ -427,9 +427,9 @@
         private System.Windows.Forms.Panel panel_table_create;
         private System.Windows.Forms.TableLayoutPanel table_creator;
         private System.Windows.Forms.Button button_add_column;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_table_create;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textbox_table_name;
     }
 }
 

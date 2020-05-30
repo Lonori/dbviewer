@@ -52,23 +52,24 @@ namespace bdviewer
         {
             base.AddRow(new Control[] {
                 create_textbox_table(),
-                create_combobox_table(new object[] { "INT", "FLOAT", "VARCHAR", "TEXT", "DATE" }, "INT"),
+                create_combobox_table(new object[] { "INT", "FLOAT", "VARCHAR", "TEXT", "DATE" }),
                 create_textbox_table(),
-                create_combobox_table(new object[] { "---", "PRIMARY", "INDEX" }, "---"),
+                create_combobox_table(new object[] { "---", "PRIMARY", "INDEX" }),
                 create_textbox_table()
             });
         }
 
-        private ComboBox create_combobox_table(object[] collection, string text)
+        private ComboBox create_combobox_table(object[] collection)
         {
             ComboBox elem = new ComboBox()
             {
                 Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                DropDownStyle = ComboBoxStyle.DropDownList,
                 FormattingEnabled = true,
-                Margin = new Padding(4, 0, 4, 0),
-                Text = text
+                Margin = new Padding(4, 0, 4, 0)
             };
             elem.Items.AddRange(collection);
+            elem.SelectedIndex = 0;
             return elem;
         }
 

@@ -20,9 +20,9 @@ namespace bdviewer
             UpdateDBTree();
             panels1 = new Panel[] { panel_crdb, panel_tables, panel_table };
             panels2 = new Panel[] { panel_table_create, panel_table_list };
-            ct_create = new Table2(table_creator, new string[] { "Таблица", "Сравнение", "Тип", "Строки", "Действия" });
+            ct_create = new Table2(table_creator, new string[] { "Имя", "Тип", "Размер", "Индекс", "Подпись" });
             ct_create.RowHeight = 40;
-            ct_list = new Table1(table_tables, new string[] { "Имя", "Тип", "Размер", "Индекс", "Подпись" });
+            ct_list = new Table1(table_tables, new string[] { "Таблица", "Сравнение", "Тип", "Строки", "Действия" });
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -32,6 +32,7 @@ namespace bdviewer
 
             if (e.Action != TreeViewAction.Collapse && e.Action != TreeViewAction.Expand && e.Node.Parent == null)
             {
+                DB.SelectDB(e.Node.Text);
                 using (DbDataReader reader = DB.Read("SELECT `TABLE_NAME`,`ENGINE`,`TABLE_ROWS`,`TABLE_COLLATION` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='" + e.Node.Text + "'"))
                 {
                     change_panel1("panel_tables");
@@ -53,6 +54,7 @@ namespace bdviewer
                 DB.SelectDB(e.Node.Parent.Text);
                 using (DbDataReader reader = DB.Read("SELECT * FROM `" + e.Node.Text + "` WHERE 1 LIMIT 25"))
                 {
+                    change_panel1("panel_table");
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
                         DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
@@ -127,6 +129,70 @@ namespace bdviewer
         private void button_add_column_Click(object sender, EventArgs e)
         {
             ct_create.AddRow();
+        }
+
+        private void button_table_create_Click(object sender, EventArgs e)
+        {
+            if (textbox_table_name.TextLength == 0)
+            {
+                ShowError("Название таблицы не может быть пустым");
+                return;
+            }
+            int amount = 0;
+            for (int i = 0; i < ct_create.Length; i++) if (ct_create[i][0].Text.Length > 0) amount++;
+            if (amount <= 0)
+            {
+                ShowError("Таблица не содержит ни одного поля");
+                return;
+            }
+            string sql = "CREATE TABLE";
+            sql += " `" + textbox_table_name.Text + "` (";
+            for (int i = 0; i < ct_create.Length; i++)
+            {
+                if (ct_create[i][0].Text.Length <= 0) continue;
+                ComboBox comboBox1 = (ComboBox)ct_create[i][1];
+                string str1 = (string)comboBox1.SelectedItem;
+                sql += "`" + ct_create[i][0].Text + "` " + str1;
+                if (ct_create[i][2].Text.Length > 0)
+                {
+                    sql += "(" + ct_create[i][2].Text + ")";
+                }
+                sql += " NOT NULL";
+                if (ct_create[i][4].Text.Length > 0)
+                {
+                    sql += " COMMENT '" + ct_create[i][4].Text + "'";
+                }
+                sql += ",";
+            }
+            sql = sql.Remove(sql.Length - 1);
+            List<string> ind_primary = new List<string>();
+            List<string> ind_index = new List<string>();
+            for (int i = 0; i < ct_create.Length; i++)
+            {
+                ComboBox comboBox2 = (ComboBox)ct_create[i][3];
+                string str2 = (string)comboBox2.SelectedItem;
+                switch (str2)
+                {
+                    case "PRIMARY":
+                        ind_primary.Add(ct_create[i][0].Text);
+                        break;
+                    case "INDEX":
+                        ind_index.Add(ct_create[i][0].Text);
+                        break;
+                }
+            }
+            if (ind_primary.Count > 0) sql += ", PRIMARY KEY (" + ListSqlStringJoin(ind_primary) + ")";
+            if (ind_index.Count > 0) sql += ", INDEX (" + ListSqlStringJoin(ind_primary) + ")";
+            sql += ") ENGINE = InnoDB";
+            if (DB.Write(sql))
+            {
+                change_panel2("panel_table_list");
+                Log(sql);
+            }
+            else
+            {
+                Log(DB.Error);
+            }
         }
     }
 }
