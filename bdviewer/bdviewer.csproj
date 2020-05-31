@@ -63,7 +63,7 @@
     <Compile Include="FormConnect.Designer.cs">
       <DependentUpon>FormConnect.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.Listeners.cs">
+    <Compile Include="FormMain.Modules.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormTables.cs" />
@@ -104,6 +104,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\b_table_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_browse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_sql.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

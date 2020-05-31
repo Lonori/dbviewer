@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace bdviewer
@@ -53,81 +52,190 @@ namespace bdviewer
             Log(DB.HostInfo + " - Подключение успешно");
         }
 
-        private void UpdateDBTree()
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            using (DbDataReader reader = DB.Read("SHOW DATABASES"))
+            DB.Close();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            UpdateDBTree();
+            panels1 = new Panel[] { panel_crdb, panel_table };
+            panels2 = new Panel[] { panel_table_create, panel_table_list, panel1 };
+            ct_create = new Table2(table_creator, new string[] { "Имя", "Тип", "Размер", "Индекс", "Подпись" });
+            ct_create.RowHeight = 40;
+            ct_list = new Table1(table_tables, new string[] { "Таблица", "Сравнение", "Тип", "Строки", "Действия" });
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+
+            if (e.Action != TreeViewAction.Collapse && e.Action != TreeViewAction.Expand && e.Node.Parent == null)
             {
-                treeView1.Nodes.Clear();
+                DB.SelectDB(e.Node.Text);
+                using (DbDataReader reader = DB.Read("SELECT `TABLE_NAME`,`ENGINE`,`TABLE_ROWS`,`TABLE_COLLATION` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='" + e.Node.Text + "'"))
+                {
+                    change_panel1("panel_table");
+                    change_panel2("panel_table_list");
+                    e.Node.Nodes.Clear();
+                    while (reader.Read())
+                    {
+                        string table_name = reader.GetString(0);
+                        e.Node.Nodes.Add(table_name);
+                        ct_list.AddRow(table_name, reader.GetString(3), reader.GetString(1), reader.GetString(2));
+                    }
+                    e.Node.Expand();
+                }
+
+                Log("True");
+            }
+            else
+            {
+                DB.SelectDB(e.Node.Parent.Text);
+                using (DbDataReader reader = DB.Read("SELECT * FROM `" + e.Node.Text + "` WHERE 1 LIMIT 25"))
+                {
+                    change_panel1("panel_table");
+                    change_panel2("panel1");
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
+                        column.Name = reader.GetName(i);
+                        column.ValueType = reader.GetFieldType(i);
+                        dataGridView1.Columns.Add(column);
+                    }
+                    while (reader.Read())
+                    {
+                        object[] row = new object[reader.FieldCount];
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            if (reader.IsDBNull(i))
+                            {
+                                row[i] = "NULL";
+                            }
+                            else
+                            {
+                                row[i] = reader.GetString(i);
+                            }
+                        }
+                        dataGridView1.Rows.Add(row);
+                    }
+                }
+
+                Log("False");
+            }
+        }
+
+        private void create_database_Click(object sender, EventArgs e)
+        {
+            if (name_new_db.TextLength == 0)
+            {
+                ShowError("Имя базы данных не может быть пустым");
+                return;
+            }
+            if (DB.Write("CREATE DATABASE `" + name_new_db.Text + "` charset=utf8mb4"))
+            {
+                Log("База данных '" + name_new_db.Text + "' успешно создана");
+                name_new_db.Text = "";
+                UpdateDBTree();
+            }
+            else
+            {
+                Log(DB.Error);
+            }
+        }
+
+        private void create_bd_Click(object sender, EventArgs e)
+        {
+            change_panel1("panel_crdb");
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            change_panel2("panel_table_list");
+            using (DbDataReader reader = DB.Read("SELECT `TABLE_NAME`,`ENGINE`,`TABLE_ROWS`,`TABLE_COLLATION` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='" + treeView1.SelectedNode.Text + "'"))
+            {
                 while (reader.Read())
                 {
-                    string db_name = reader.GetString(0);
-                    if (db_name == "information_schema") continue;
-                    treeView1.Nodes.Add(db_name);
+                    string table_name = reader.GetString(0);
+                    ct_list.AddRow(table_name, reader.GetString(3), reader.GetString(1), reader.GetString(2));
                 }
             }
         }
 
-        private void change_panel1(string name)
+        private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < panels1.Length; i++)
+            change_panel2("panel_table_create");
+        }
+
+        private void button_add_column_Click(object sender, EventArgs e)
+        {
+            ct_create.AddRow();
+        }
+
+        private void button_table_create_Click(object sender, EventArgs e)
+        {
+            if (textbox_table_name.TextLength == 0)
             {
-                if (name == panels1[i].Name)
-                {
-                    panels1[i].Visible = true;
-                }
-                else
-                {
-                    panels1[i].Visible = false;
-                }
+                ShowError("Название таблицы не может быть пустым");
+                return;
             }
-        }
-
-        private void change_panel2(string name)
-        {
-            ct_list.Clear();
-            ct_create.Clear();
-            textbox_table_name.Text = "";
-
-            for (int i = 0; i < panels2.Length; i++)
+            int amount = 0;
+            for (int i = 0; i < ct_create.Length; i++) if (ct_create[i][0].Text.Length > 0) amount++;
+            if (amount <= 0)
             {
-                if (name == panels2[i].Name)
-                {
-                    panels2[i].Visible = true;
-                    if (name == "panel_table_create") ct_create.AddRow();
-                }
-                else
-                {
-                    panels2[i].Visible = false;
-                }
+                ShowError("Таблица не содержит ни одного поля");
+                return;
             }
-        }
-
-        private void ShowError(string message)
-        {
-            MessageBox.Show(
-                message,
-                "Ошибка",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error,
-                MessageBoxDefaultButton.Button1
-            );
-        }
-
-        private void Log(string message)
-        {
-            log_label.Text += "[" + DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss") + "] " + message + "\r\n";
-            log_panel.AutoScrollPosition = new Point(0, log_label.Height);
-        }
-
-        private string ListSqlStringJoin(List<string> list)
-        {
-            string tmp = "";
-            for (int i = 0; i < list.Count; i++)
+            string sql = "CREATE TABLE";
+            sql += " `" + textbox_table_name.Text + "` (";
+            for (int i = 0; i < ct_create.Length; i++)
             {
-                tmp += "`" + list[i] + "`";
-                if (i < list.Count - 1) tmp += ",";
+                if (ct_create[i][0].Text.Length <= 0) continue;
+                ComboBox comboBox1 = (ComboBox)ct_create[i][1];
+                string str1 = (string)comboBox1.SelectedItem;
+                sql += "`" + ct_create[i][0].Text + "` " + str1;
+                if (ct_create[i][2].Text.Length > 0)
+                {
+                    sql += "(" + ct_create[i][2].Text + ")";
+                }
+                sql += " NOT NULL";
+                if (ct_create[i][4].Text.Length > 0)
+                {
+                    sql += " COMMENT '" + ct_create[i][4].Text + "'";
+                }
+                sql += ",";
             }
-            return tmp;
+            sql = sql.Remove(sql.Length - 1);
+            List<string> ind_primary = new List<string>();
+            List<string> ind_index = new List<string>();
+            for (int i = 0; i < ct_create.Length; i++)
+            {
+                ComboBox comboBox2 = (ComboBox)ct_create[i][3];
+                string str2 = (string)comboBox2.SelectedItem;
+                switch (str2)
+                {
+                    case "PRIMARY":
+                        ind_primary.Add(ct_create[i][0].Text);
+                        break;
+                    case "INDEX":
+                        ind_index.Add(ct_create[i][0].Text);
+                        break;
+                }
+            }
+            if (ind_primary.Count > 0) sql += ", PRIMARY KEY (" + ListSqlStringJoin(ind_primary) + ")";
+            if (ind_index.Count > 0) sql += ", INDEX (" + ListSqlStringJoin(ind_primary) + ")";
+            sql += ") ENGINE = InnoDB";
+            if (DB.Write(sql))
+            {
+                change_panel2("panel_table_list");
+                Log(sql);
+            }
+            else
+            {
+                Log(DB.Error);
+            }
         }
     }
 }

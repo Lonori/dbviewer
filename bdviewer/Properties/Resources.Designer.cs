@@ -63,9 +63,29 @@ namespace bdviewer.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap b_browse {
+            get {
+                object obj = ResourceManager.GetObject("b_browse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap b_props {
             get {
                 object obj = ResourceManager.GetObject("b_props", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap b_sql {
+            get {
+                object obj = ResourceManager.GetObject("b_sql", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
