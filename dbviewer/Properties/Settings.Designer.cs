@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bdviewer.Properties
+namespace dbviewer.Properties
 {
 
 

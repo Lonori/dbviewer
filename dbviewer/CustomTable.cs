@@ -4,7 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace bdviewer
+namespace dbviewer
 {
     class CustomTable
     {

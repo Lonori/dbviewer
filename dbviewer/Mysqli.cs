@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace bdviewer
+namespace dbviewer
 {
     class Mysqli
     {

@@ -78,18 +78,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -99,17 +99,42 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\b_props.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\b_table_add.png" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\b_browse.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\b_deltbl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_drop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_engine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_index.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_newdb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_primary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_props.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_routines.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\b_sql.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_triggers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\database.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

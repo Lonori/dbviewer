@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace bdviewer
+namespace dbviewer
 {
     public partial class FormConnect : Form
     {

@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace bdviewer
+namespace dbviewer
 {
     class Table1 : CustomTable
     {

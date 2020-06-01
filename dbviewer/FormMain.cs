@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Windows.Forms;
 
-namespace bdviewer
+namespace dbviewer
 {
     public partial class FormMain : Form
     {
@@ -60,8 +60,8 @@ namespace bdviewer
         private void Form1_Load(object sender, EventArgs e)
         {
             UpdateDBTree();
-            panels1 = new Panel[] { panel_crdb, panel_table };
-            panels2 = new Panel[] { panel_table_create, panel_table_list, panel1 };
+            panels1 = new Panel[] { panel_db_create, panel_database };
+            panels2 = new Panel[] { panel_table_create, panel_table_list, panel_table_data };
             ct_create = new Table2(table_creator, new string[] { "Имя", "Тип", "Размер", "Индекс", "Подпись" });
             ct_create.RowHeight = 40;
             ct_list = new Table1(table_tables, new string[] { "Таблица", "Сравнение", "Тип", "Строки", "Действия" });
@@ -77,7 +77,7 @@ namespace bdviewer
                 DB.SelectDB(e.Node.Text);
                 using (DbDataReader reader = DB.Read("SELECT `TABLE_NAME`,`ENGINE`,`TABLE_ROWS`,`TABLE_COLLATION` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='" + e.Node.Text + "'"))
                 {
-                    change_panel1("panel_table");
+                    change_panel1("panel_database");
                     change_panel2("panel_table_list");
                     e.Node.Nodes.Clear();
                     while (reader.Read())
@@ -96,8 +96,8 @@ namespace bdviewer
                 DB.SelectDB(e.Node.Parent.Text);
                 using (DbDataReader reader = DB.Read("SELECT * FROM `" + e.Node.Text + "` WHERE 1 LIMIT 25"))
                 {
-                    change_panel1("panel_table");
-                    change_panel2("panel1");
+                    change_panel1("panel_database");
+                    change_panel2("panel_table_data");
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
                         DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
@@ -148,7 +148,7 @@ namespace bdviewer
 
         private void create_bd_Click(object sender, EventArgs e)
         {
-            change_panel1("panel_crdb");
+            change_panel1("panel_db_create");
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)

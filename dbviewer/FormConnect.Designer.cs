@@ -1,4 +1,4 @@
-﻿namespace bdviewer
+﻿namespace dbviewer
 {
     partial class FormConnect
     {
