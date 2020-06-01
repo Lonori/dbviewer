@@ -1,6 +1,9 @@
-﻿using System;
+﻿using bdviewer;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace dbviewer
@@ -8,8 +11,8 @@ namespace dbviewer
     public partial class FormMain : Form
     {
         private Mysqli DB;
-        private Panel[] panels1;
-        private Panel[] panels2;
+        private PanelTriger pt_db_func;
+        private PanelTriger pt_table_func;
         private Table1 ct_list;
         private Table2 ct_create;
 
@@ -48,7 +51,7 @@ namespace dbviewer
             form.Dispose();
 
             InitializeComponent();
-            this.Text = host + " | DB Viewer";
+            this.Text = host + ":3306 | DB Viewer";
             Log(DB.HostInfo + " - Подключение успешно");
         }
 
@@ -60,70 +63,88 @@ namespace dbviewer
         private void Form1_Load(object sender, EventArgs e)
         {
             UpdateDBTree();
-            panels1 = new Panel[] { panel_db_create, panel_database };
-            panels2 = new Panel[] { panel_table_create, panel_table_list, panel_table_data };
+            pt_db_func = new PanelTriger(new Panel[] { panel_db_create, panel_database });
+            pt_table_func = new PanelTriger(new Panel[] { panel_table_create, panel_table_list, panel_table_data, panel_sql });
+            ct_list = new Table1(table_tables, new string[] { "Таблица", "Сравнение", "Тип", "Строки", "Действия" });
             ct_create = new Table2(table_creator, new string[] { "Имя", "Тип", "Размер", "Индекс", "Подпись" });
             ct_create.RowHeight = 40;
-            ct_list = new Table1(table_tables, new string[] { "Таблица", "Сравнение", "Тип", "Строки", "Действия" });
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Clear();
-
             if (e.Action != TreeViewAction.Collapse && e.Action != TreeViewAction.Expand && e.Node.Parent == null)
             {
                 DB.SelectDB(e.Node.Text);
                 using (DbDataReader reader = DB.Read("SELECT `TABLE_NAME`,`ENGINE`,`TABLE_ROWS`,`TABLE_COLLATION` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='" + e.Node.Text + "'"))
                 {
-                    change_panel1("panel_database");
-                    change_panel2("panel_table_list");
+                    pt_db_func.ChangeActivePanel(panel_database);
+                    pt_table_changer(panel_table_list);
                     e.Node.Nodes.Clear();
                     while (reader.Read())
                     {
                         string table_name = reader.GetString(0);
-                        e.Node.Nodes.Add(table_name);
+                        e.Node.Nodes.Add(new TreeNode(table_name) { ImageIndex = 1 });
                         ct_list.AddRow(table_name, reader.GetString(3), reader.GetString(1), reader.GetString(2));
                     }
                     e.Node.Expand();
                 }
 
-                Log("True");
+                Log("tree db");
             }
             else
             {
+                //table_query_result.Rows.Clear();
+                //table_query_result.Columns.Clear();
+                data_cache.Tables.Clear();
+                pt_db_func.ChangeActivePanel(panel_database);
+                pt_table_changer(panel_table_data);
+
                 DB.SelectDB(e.Node.Parent.Text);
-                using (DbDataReader reader = DB.Read("SELECT * FROM `" + e.Node.Text + "` WHERE 1 LIMIT 25"))
+                adapter = new MySqlDataAdapter("SELECT * FROM `" + e.Node.Text + "` WHERE 1", DB.conn);
+                adapter.Fill(data_cache);
+                table_query_result.DataSource = data_cache.Tables[0];
+
+                using (DbDataReader reader = DB.Read("SELECT `COLUMN_NAME`,`COLUMN_COMMENT` FROM `information_schema`.`COLUMNS` WHERE `TABLE_SCHEMA`='" + e.Node.Parent.Text + "' AND `TABLE_NAME`='" + e.Node.Text + "'"))
                 {
-                    change_panel1("panel_database");
-                    change_panel2("panel_table_data");
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
-                        column.Name = reader.GetName(i);
-                        column.ValueType = reader.GetFieldType(i);
-                        dataGridView1.Columns.Add(column);
-                    }
                     while (reader.Read())
                     {
-                        object[] row = new object[reader.FieldCount];
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        string column_name = reader.GetString(0);
+                        string column_comment = reader.GetString(1);
+                        if (column_comment == "") continue;
+                        for (int i = 0; i < table_query_result.Columns.Count; i++)
                         {
-                            if (reader.IsDBNull(i))
+                            if (table_query_result.Columns[i].Name == column_name)
                             {
-                                row[i] = "NULL";
-                            }
-                            else
-                            {
-                                row[i] = reader.GetString(i);
+                                table_query_result.Columns[i].HeaderText = column_comment;
+                                break;
                             }
                         }
-                        dataGridView1.Rows.Add(row);
                     }
                 }
 
-                Log("False");
+                Log("tree table");
+            }
+        }
+
+        private MySqlDataAdapter adapter;
+
+        private void test_update()
+        {
+            try
+            {
+                if(!data_cache.HasChanges()) return;
+                table_query_result.EndEdit();
+                table_query_result.CurrentCell = null;
+                MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(adapter);
+                adapter.Update(data_cache);
+
+                data_cache.Clear();
+                adapter.Fill(data_cache);
+                Log("Изменения успешно сохранены");
+            }
+            catch
+            {
+                Log("Ошибка сохранения");
             }
         }
 
@@ -148,13 +169,13 @@ namespace dbviewer
 
         private void create_bd_Click(object sender, EventArgs e)
         {
-            change_panel1("panel_db_create");
+            pt_db_func.ChangeActivePanel(panel_db_create);
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            change_panel2("panel_table_list");
-            using (DbDataReader reader = DB.Read("SELECT `TABLE_NAME`,`ENGINE`,`TABLE_ROWS`,`TABLE_COLLATION` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='" + treeView1.SelectedNode.Text + "'"))
+            pt_table_changer(panel_table_list);
+            using (DbDataReader reader = DB.Read("SELECT `TABLE_NAME`,`ENGINE`,`TABLE_ROWS`,`TABLE_COLLATION` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='" + db_tree_list.SelectedNode.Text + "'"))
             {
                 while (reader.Read())
                 {
@@ -162,11 +183,6 @@ namespace dbviewer
                     ct_list.AddRow(table_name, reader.GetString(3), reader.GetString(1), reader.GetString(2));
                 }
             }
-        }
-
-        private void toolStripButton2_Click(object sender, EventArgs e)
-        {
-            change_panel2("panel_table_create");
         }
 
         private void button_add_column_Click(object sender, EventArgs e)
@@ -209,7 +225,7 @@ namespace dbviewer
             }
             sql = sql.Remove(sql.Length - 1);
             List<string> ind_primary = new List<string>();
-            List<string> ind_index = new List<string>();
+            /*List<string> ind_index = new List<string>();*/
             for (int i = 0; i < ct_create.Length; i++)
             {
                 ComboBox comboBox2 = (ComboBox)ct_create[i][3];
@@ -219,22 +235,84 @@ namespace dbviewer
                     case "PRIMARY":
                         ind_primary.Add(ct_create[i][0].Text);
                         break;
-                    case "INDEX":
-                        ind_index.Add(ct_create[i][0].Text);
-                        break;
+                        /*case "INDEX":
+                            ind_index.Add(ct_create[i][0].Text);
+                            break;*/
                 }
             }
             if (ind_primary.Count > 0) sql += ", PRIMARY KEY (" + ListSqlStringJoin(ind_primary) + ")";
-            if (ind_index.Count > 0) sql += ", INDEX (" + ListSqlStringJoin(ind_primary) + ")";
+            /*if (ind_index.Count > 0) sql += ", INDEX (" + ListSqlStringJoin(ind_primary) + ")";*/
             sql += ") ENGINE = InnoDB";
             if (DB.Write(sql))
             {
-                change_panel2("panel_table_list");
+                pt_table_changer(panel_table_list);
                 Log(sql);
             }
             else
             {
                 Log(DB.Error);
+            }
+        }
+
+        private void plaseholder_listener_Enter(object sender, EventArgs e)
+        {
+            TextBox elem = (TextBox)sender;
+            if (elem.Text == (string)elem.Tag && elem.ForeColor == Color.Silver)
+            {
+                elem.Text = "";
+                elem.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void plaseholder_listener_Leave(object sender, EventArgs e)
+        {
+            TextBox elem = (TextBox)sender;
+            if (elem.Text == "")
+            {
+                elem.Text = (string)elem.Tag;
+                elem.ForeColor = Color.Silver;
+            }
+        }
+
+        private void tool_panel_tsb_Click(object sender, EventArgs e)
+        {
+            ToolStripButton elem = (ToolStripButton)sender;
+            if (elem.Name == "tool_panel_tsb4") pt_table_changer(panel_sql);
+            if (db_tree_list.SelectedNode.Parent == null)
+            {
+                if (elem.Name == "tool_panel_tsb2") pt_table_changer(panel_table_list);
+                if (elem.Name == "tool_panel_tsb3") pt_table_changer(panel_table_create);
+                //if (elem.Name == "tool_panel_tsb6") pt_table_changer();
+                //if (elem.Name == "tool_panel_tsb7") pt_table_changer();
+                //if (elem.Name == "tool_panel_tsb9") test_update();
+            }
+            else
+            {
+                if (elem.Name == "tool_panel_tsb1") pt_table_changer(panel_table_data);
+                //if (elem.Name == "tool_panel_tsb5") pt_table_changer();
+                if (elem.Name == "tool_panel_tsb8") test_update();
+            }
+        }
+
+        private void table_query_result_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            Log("UserAddedRow: " + sender.GetType().ToString());
+        }
+
+        private void table_query_result_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            Log("UserDeletedRow: " + sender.GetType().ToString());
+        }
+
+        private void table_query_result_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (e.Context.HasFlag(DataGridViewDataErrorContexts.LeaveControl))
+            {
+                table_query_result.CancelEdit();
+            }
+            else
+            {
+                Log(e.Exception.Message);
             }
         }
     }

@@ -12,49 +12,46 @@ namespace dbviewer
         {
             using (DbDataReader reader = DB.Read("SHOW DATABASES"))
             {
-                treeView1.Nodes.Clear();
+                db_tree_list.Nodes.Clear();
                 while (reader.Read())
                 {
                     string db_name = reader.GetString(0);
                     if (db_name == "information_schema") continue;
-                    treeView1.Nodes.Add(db_name);
+                    db_tree_list.Nodes.Add(db_name);
                 }
             }
         }
 
-        private void change_panel1(string name)
-        {
-            for (int i = 0; i < panels1.Length; i++)
-            {
-                if (name == panels1[i].Name)
-                {
-                    panels1[i].Visible = true;
-                }
-                else
-                {
-                    panels1[i].Visible = false;
-                }
-            }
-        }
-
-        private void change_panel2(string name)
+        private void pt_table_changer(Panel name)
         {
             ct_list.Clear();
             ct_create.Clear();
             textbox_table_name.Text = "";
-
-            for (int i = 0; i < panels2.Length; i++)
+            if(db_tree_list.SelectedNode.Parent == null)
             {
-                if (name == panels2[i].Name)
-                {
-                    panels2[i].Visible = true;
-                    if (name == "panel_table_create") ct_create.AddRow();
-                }
-                else
-                {
-                    panels2[i].Visible = false;
-                }
+                tool_panel_tsb1.Visible = false;
+                tool_panel_tsb2.Visible = true;
+                tool_panel_tsb3.Visible = true;
+                tool_panel_tsb4.Visible = true;
+                tool_panel_tsb5.Visible = false;
+                tool_panel_tsb6.Visible = true;
+                tool_panel_tsb7.Visible = true;
+                tool_panel_tsb8.Visible = false;
+                tool_panel_tsb9.Visible = true;
+            } else
+            {
+                tool_panel_tsb1.Visible = true;
+                tool_panel_tsb2.Visible = true;
+                tool_panel_tsb3.Visible = false;
+                tool_panel_tsb4.Visible = true;
+                tool_panel_tsb5.Visible = true;
+                tool_panel_tsb6.Visible = false;
+                tool_panel_tsb7.Visible = false;
+                tool_panel_tsb8.Visible = true;
+                tool_panel_tsb9.Visible = false;
             }
+
+            pt_table_func.ChangeActivePanel(name);
         }
 
         private void ShowError(string message)

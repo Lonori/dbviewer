@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2F7E0623-1562-4F55-88A0-3F1F76B5CE97}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>bdviewer</RootNamespace>
-    <AssemblyName>bdviewer</AssemblyName>
+    <RootNamespace>dbviewer</RootNamespace>
+    <AssemblyName>dbviewer</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
@@ -68,6 +71,7 @@
     </Compile>
     <Compile Include="FormTables.cs" />
     <Compile Include="Mysqli.cs" />
+    <Compile Include="PanelTriger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormMain.resx">
@@ -99,7 +103,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\play.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\b_browse.png" />
   </ItemGroup>
@@ -135,6 +141,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_insrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\db_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_table_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

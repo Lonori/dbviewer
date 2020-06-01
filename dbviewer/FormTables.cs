@@ -54,7 +54,7 @@ namespace dbviewer
                 create_textbox_table(),
                 create_combobox_table(new object[] { "INT", "FLOAT", "VARCHAR", "TEXT", "DATE" }),
                 create_textbox_table(),
-                create_combobox_table(new object[] { "---", "PRIMARY", "INDEX" }),
+                create_combobox_table(new object[] { "---", "PRIMARY" }),
                 create_textbox_table()
             });
         }

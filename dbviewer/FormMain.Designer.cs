@@ -28,17 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            this.db_tree_list = new System.Windows.Forms.TreeView();
+            this.tree_list_icon = new System.Windows.Forms.ImageList(this.components);
+            this.table_query_result = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.log_panel = new System.Windows.Forms.Panel();
             this.log_label = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.create_bd = new System.Windows.Forms.Button();
             this.panel_database = new System.Windows.Forms.Panel();
+            this.panel_table_data = new System.Windows.Forms.Panel();
             this.panel_table_list = new System.Windows.Forms.Panel();
             this.table_tables = new System.Windows.Forms.TableLayoutPanel();
-            this.panel_table_data = new System.Windows.Forms.Panel();
             this.panel_sql = new System.Windows.Forms.Panel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel_table_create = new System.Windows.Forms.Panel();
@@ -50,6 +52,16 @@
             this.button_table_create = new System.Windows.Forms.Button();
             this.tool_panel_container = new System.Windows.Forms.TableLayoutPanel();
             this.tool_panel = new System.Windows.Forms.ToolStrip();
+            this.tool_panel_tsb1 = new System.Windows.Forms.ToolStripButton();
+            this.tool_panel_tsb2 = new System.Windows.Forms.ToolStripButton();
+            this.tool_panel_tsb3 = new System.Windows.Forms.ToolStripButton();
+            this.tool_panel_tsb4 = new System.Windows.Forms.ToolStripButton();
+            this.tool_panel_tsb5 = new System.Windows.Forms.ToolStripButton();
+            this.tool_panel_tsb6 = new System.Windows.Forms.ToolStripButton();
+            this.tool_panel_tsb7 = new System.Windows.Forms.ToolStripButton();
+            this.tool_panel_tsb8 = new System.Windows.Forms.ToolStripButton();
+            this.tool_panel_tsb9 = new System.Windows.Forms.ToolStripButton();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
@@ -62,22 +74,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.main_split = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.create_bd = new System.Windows.Forms.Button();
             this.sub_split = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.data_cache = new System.Data.DataSet();
+            ((System.ComponentModel.ISupportInitialize)(this.table_query_result)).BeginInit();
             this.log_panel.SuspendLayout();
             this.panel_database.SuspendLayout();
-            this.panel_table_list.SuspendLayout();
             this.panel_table_data.SuspendLayout();
+            this.panel_table_list.SuspendLayout();
             this.panel_sql.SuspendLayout();
             this.panel_table_create.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tool_panel_container.SuspendLayout();
             this.tool_panel.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel_db_create.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.main_split)).BeginInit();
@@ -90,29 +101,43 @@
             this.sub_split.Panel2.SuspendLayout();
             this.sub_split.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_cache)).BeginInit();
             this.SuspendLayout();
             // 
-            // treeView1
+            // db_tree_list
             // 
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(0, 62);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(0);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(198, 497);
-            this.treeView1.TabIndex = 1;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.db_tree_list.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.db_tree_list.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.db_tree_list.ImageIndex = 0;
+            this.db_tree_list.ImageList = this.tree_list_icon;
+            this.db_tree_list.Location = new System.Drawing.Point(0, 62);
+            this.db_tree_list.Margin = new System.Windows.Forms.Padding(0);
+            this.db_tree_list.Name = "db_tree_list";
+            this.db_tree_list.SelectedImageIndex = 2;
+            this.db_tree_list.Size = new System.Drawing.Size(198, 497);
+            this.db_tree_list.TabIndex = 1;
+            this.db_tree_list.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
-            // dataGridView1
+            // tree_list_icon
             // 
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(778, 406);
-            this.dataGridView1.TabIndex = 2;
+            this.tree_list_icon.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tree_list_icon.ImageStream")));
+            this.tree_list_icon.TransparentColor = System.Drawing.Color.Transparent;
+            this.tree_list_icon.Images.SetKeyName(0, "database.png");
+            this.tree_list_icon.Images.SetKeyName(1, "b_browse.png");
+            this.tree_list_icon.Images.SetKeyName(2, "play.png");
+            // 
+            // table_query_result
+            // 
+            this.table_query_result.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.table_query_result.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.table_query_result.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.table_query_result.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.table_query_result.Location = new System.Drawing.Point(0, 0);
+            this.table_query_result.Margin = new System.Windows.Forms.Padding(0);
+            this.table_query_result.Name = "table_query_result";
+            this.table_query_result.Size = new System.Drawing.Size(778, 406);
+            this.table_query_result.TabIndex = 2;
+            this.table_query_result.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.table_query_result_DataError);
             // 
             // label2
             // 
@@ -160,28 +185,11 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Лог:";
             // 
-            // create_bd
-            // 
-            this.create_bd.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.create_bd.Dock = System.Windows.Forms.DockStyle.Top;
-            this.create_bd.FlatAppearance.BorderSize = 0;
-            this.create_bd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.create_bd.Image = global::bdviewer.Properties.Resources.b_newdb;
-            this.create_bd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.create_bd.Location = new System.Drawing.Point(0, 32);
-            this.create_bd.Margin = new System.Windows.Forms.Padding(0);
-            this.create_bd.Name = "create_bd";
-            this.create_bd.Size = new System.Drawing.Size(198, 30);
-            this.create_bd.TabIndex = 6;
-            this.create_bd.Text = "Создать БД";
-            this.create_bd.UseVisualStyleBackColor = false;
-            this.create_bd.Click += new System.EventHandler(this.create_bd_Click);
-            // 
             // panel_database
             // 
             this.panel_database.BackColor = System.Drawing.Color.Transparent;
-            this.panel_database.Controls.Add(this.panel_table_list);
             this.panel_database.Controls.Add(this.panel_table_data);
+            this.panel_database.Controls.Add(this.panel_table_list);
             this.panel_database.Controls.Add(this.panel_sql);
             this.panel_database.Controls.Add(this.panel_table_create);
             this.panel_database.Controls.Add(this.tool_panel_container);
@@ -192,6 +200,17 @@
             this.panel_database.Size = new System.Drawing.Size(778, 438);
             this.panel_database.TabIndex = 7;
             this.panel_database.Visible = false;
+            // 
+            // panel_table_data
+            // 
+            this.panel_table_data.Controls.Add(this.table_query_result);
+            this.panel_table_data.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_table_data.Location = new System.Drawing.Point(0, 32);
+            this.panel_table_data.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_table_data.Name = "panel_table_data";
+            this.panel_table_data.Size = new System.Drawing.Size(778, 406);
+            this.panel_table_data.TabIndex = 4;
+            this.panel_table_data.Visible = false;
             // 
             // panel_table_list
             // 
@@ -223,17 +242,6 @@
             this.table_tables.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.table_tables.Size = new System.Drawing.Size(778, 30);
             this.table_tables.TabIndex = 0;
-            // 
-            // panel_table_data
-            // 
-            this.panel_table_data.Controls.Add(this.dataGridView1);
-            this.panel_table_data.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_table_data.Location = new System.Drawing.Point(0, 32);
-            this.panel_table_data.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_table_data.Name = "panel_table_data";
-            this.panel_table_data.Size = new System.Drawing.Size(778, 406);
-            this.panel_table_data.TabIndex = 4;
-            this.panel_table_data.Visible = false;
             // 
             // panel_sql
             // 
@@ -366,14 +374,13 @@
             this.tool_panel_container.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tool_panel_container.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tool_panel_container.Controls.Add(this.tool_panel, 0, 0);
-            this.tool_panel_container.Controls.Add(this.textBox1, 1, 0);
+            this.tool_panel_container.Controls.Add(this.panel3, 1, 0);
             this.tool_panel_container.Dock = System.Windows.Forms.DockStyle.Top;
             this.tool_panel_container.Location = new System.Drawing.Point(0, 0);
             this.tool_panel_container.Margin = new System.Windows.Forms.Padding(0);
             this.tool_panel_container.Name = "tool_panel_container";
             this.tool_panel_container.RowCount = 1;
             this.tool_panel_container.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tool_panel_container.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tool_panel_container.Size = new System.Drawing.Size(778, 32);
             this.tool_panel_container.TabIndex = 5;
             // 
@@ -384,10 +391,15 @@
             this.tool_panel.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.tool_panel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tool_panel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton2,
-            this.toolStripButton6,
-            this.toolStripButton7,
-            this.toolStripButton8});
+            this.tool_panel_tsb1,
+            this.tool_panel_tsb2,
+            this.tool_panel_tsb3,
+            this.tool_panel_tsb4,
+            this.tool_panel_tsb5,
+            this.tool_panel_tsb6,
+            this.tool_panel_tsb7,
+            this.tool_panel_tsb8,
+            this.tool_panel_tsb9});
             this.tool_panel.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.tool_panel.Location = new System.Drawing.Point(0, 0);
             this.tool_panel.Name = "tool_panel";
@@ -396,16 +408,123 @@
             this.tool_panel.TabIndex = 3;
             this.tool_panel.Text = "toolStrip2";
             // 
+            // tool_panel_tsb1
+            // 
+            this.tool_panel_tsb1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb1.Image = global::dbviewer.Properties.Resources.b_browse;
+            this.tool_panel_tsb1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb1.Name = "tool_panel_tsb1";
+            this.tool_panel_tsb1.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb1.Text = "Обзор";
+            this.tool_panel_tsb1.Click += new System.EventHandler(this.tool_panel_tsb_Click);
+            // 
+            // tool_panel_tsb2
+            // 
+            this.tool_panel_tsb2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb2.Image = global::dbviewer.Properties.Resources.b_props;
+            this.tool_panel_tsb2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb2.Name = "tool_panel_tsb2";
+            this.tool_panel_tsb2.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb2.Text = "Структура";
+            this.tool_panel_tsb2.Click += new System.EventHandler(this.tool_panel_tsb_Click);
+            // 
+            // tool_panel_tsb3
+            // 
+            this.tool_panel_tsb3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb3.Image = global::dbviewer.Properties.Resources.b_table_add;
+            this.tool_panel_tsb3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb3.Name = "tool_panel_tsb3";
+            this.tool_panel_tsb3.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb3.Text = "Создать таблицу";
+            this.tool_panel_tsb3.Click += new System.EventHandler(this.tool_panel_tsb_Click);
+            // 
+            // tool_panel_tsb4
+            // 
+            this.tool_panel_tsb4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb4.Image = global::dbviewer.Properties.Resources.b_sql;
+            this.tool_panel_tsb4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb4.Name = "tool_panel_tsb4";
+            this.tool_panel_tsb4.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb4.Text = "SQL";
+            this.tool_panel_tsb4.Click += new System.EventHandler(this.tool_panel_tsb_Click);
+            // 
+            // tool_panel_tsb5
+            // 
+            this.tool_panel_tsb5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb5.Image = global::dbviewer.Properties.Resources.b_insrow;
+            this.tool_panel_tsb5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb5.Name = "tool_panel_tsb5";
+            this.tool_panel_tsb5.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb5.Text = "Вставить";
+            this.tool_panel_tsb5.Click += new System.EventHandler(this.tool_panel_tsb_Click);
+            // 
+            // tool_panel_tsb6
+            // 
+            this.tool_panel_tsb6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb6.Image = global::dbviewer.Properties.Resources.b_routines;
+            this.tool_panel_tsb6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb6.Name = "tool_panel_tsb6";
+            this.tool_panel_tsb6.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb6.Text = "Процедуры";
+            this.tool_panel_tsb6.Click += new System.EventHandler(this.tool_panel_tsb_Click);
+            // 
+            // tool_panel_tsb7
+            // 
+            this.tool_panel_tsb7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb7.Image = global::dbviewer.Properties.Resources.b_triggers;
+            this.tool_panel_tsb7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb7.Name = "tool_panel_tsb7";
+            this.tool_panel_tsb7.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb7.Text = "Тригеры";
+            this.tool_panel_tsb7.Click += new System.EventHandler(this.tool_panel_tsb_Click);
+            // 
+            // tool_panel_tsb8
+            // 
+            this.tool_panel_tsb8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb8.Image = global::dbviewer.Properties.Resources.b_deltbl;
+            this.tool_panel_tsb8.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb8.Name = "tool_panel_tsb8";
+            this.tool_panel_tsb8.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb8.Text = "Удалить таблицу";
+            this.tool_panel_tsb8.Click += new System.EventHandler(this.tool_panel_tsb_Click);
+            // 
+            // tool_panel_tsb9
+            // 
+            this.tool_panel_tsb9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tool_panel_tsb9.Image = global::dbviewer.Properties.Resources.db_remove;
+            this.tool_panel_tsb9.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tool_panel_tsb9.Name = "tool_panel_tsb9";
+            this.tool_panel_tsb9.Size = new System.Drawing.Size(23, 29);
+            this.tool_panel_tsb9.Text = "Удалить базу данных";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.Window;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(544, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(0);
+            this.panel3.Name = "panel3";
+            this.panel3.Padding = new System.Windows.Forms.Padding(4);
+            this.panel3.Size = new System.Drawing.Size(234, 32);
+            this.panel3.TabIndex = 4;
+            // 
             // textBox1
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(544, 0);
+            this.textBox1.ForeColor = System.Drawing.Color.Silver;
+            this.textBox1.Location = new System.Drawing.Point(4, 4);
             this.textBox1.Margin = new System.Windows.Forms.Padding(0);
             this.textBox1.MaxLength = 100;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(234, 32);
+            this.textBox1.Size = new System.Drawing.Size(224, 25);
             this.textBox1.TabIndex = 4;
+            this.textBox1.Tag = "Поиск";
+            this.textBox1.Text = "Поиск";
+            this.textBox1.Enter += new System.EventHandler(this.plaseholder_listener_Enter);
+            this.textBox1.Leave += new System.EventHandler(this.plaseholder_listener_Leave);
             // 
             // toolStripButton3
             // 
@@ -529,7 +648,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.treeView1);
+            this.panel1.Controls.Add(this.db_tree_list);
             this.panel1.Controls.Add(this.create_bd);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -538,6 +657,23 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(198, 559);
             this.panel1.TabIndex = 7;
+            // 
+            // create_bd
+            // 
+            this.create_bd.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.create_bd.Dock = System.Windows.Forms.DockStyle.Top;
+            this.create_bd.FlatAppearance.BorderSize = 0;
+            this.create_bd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.create_bd.Image = global::dbviewer.Properties.Resources.b_newdb;
+            this.create_bd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.create_bd.Location = new System.Drawing.Point(0, 32);
+            this.create_bd.Margin = new System.Windows.Forms.Padding(0);
+            this.create_bd.Name = "create_bd";
+            this.create_bd.Size = new System.Drawing.Size(198, 30);
+            this.create_bd.TabIndex = 6;
+            this.create_bd.Text = "Создать БД";
+            this.create_bd.UseVisualStyleBackColor = false;
+            this.create_bd.Click += new System.EventHandler(this.create_bd_Click);
             // 
             // sub_split
             // 
@@ -575,41 +711,9 @@
             this.panel2.Size = new System.Drawing.Size(778, 115);
             this.panel2.TabIndex = 6;
             // 
-            // toolStripButton2
+            // data_cache
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::bdviewer.Properties.Resources.b_browse;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 29);
-            this.toolStripButton2.Text = "toolStripButton2";
-            // 
-            // toolStripButton6
-            // 
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.Image = global::bdviewer.Properties.Resources.b_props;
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(23, 29);
-            this.toolStripButton6.Text = "toolStripButton6";
-            // 
-            // toolStripButton7
-            // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton7.Image = global::bdviewer.Properties.Resources.b_sql;
-            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(23, 29);
-            this.toolStripButton7.Text = "toolStripButton7";
-            // 
-            // toolStripButton8
-            // 
-            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton8.Image = global::bdviewer.Properties.Resources.b_drop;
-            this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(23, 29);
-            this.toolStripButton8.Text = "toolStripButton8";
+            this.data_cache.DataSetName = "NewDataSet";
             // 
             // FormMain
             // 
@@ -619,6 +723,7 @@
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.main_split);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "FormMain";
@@ -626,12 +731,12 @@
             this.Text = "DB Viewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.table_query_result)).EndInit();
             this.log_panel.ResumeLayout(false);
             this.log_panel.PerformLayout();
             this.panel_database.ResumeLayout(false);
-            this.panel_table_list.ResumeLayout(false);
             this.panel_table_data.ResumeLayout(false);
+            this.panel_table_list.ResumeLayout(false);
             this.panel_sql.ResumeLayout(false);
             this.panel_sql.PerformLayout();
             this.panel_table_create.ResumeLayout(false);
@@ -641,6 +746,8 @@
             this.tool_panel_container.PerformLayout();
             this.tool_panel.ResumeLayout(false);
             this.tool_panel.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel_db_create.ResumeLayout(false);
             this.panel_db_create.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -657,13 +764,14 @@
             this.sub_split.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_cache)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TreeView db_tree_list;
+        private System.Windows.Forms.DataGridView table_query_result;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel log_panel;
         private System.Windows.Forms.Label log_label;
@@ -698,10 +806,18 @@
         private System.Windows.Forms.Panel panel_sql;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton6;
-        private System.Windows.Forms.ToolStripButton toolStripButton7;
-        private System.Windows.Forms.ToolStripButton toolStripButton8;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb1;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb2;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb3;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb4;
+        private System.Windows.Forms.ImageList tree_list_icon;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb5;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb6;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb7;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb8;
+        private System.Windows.Forms.ToolStripButton tool_panel_tsb9;
+        private System.Data.DataSet data_cache;
     }
 }
 

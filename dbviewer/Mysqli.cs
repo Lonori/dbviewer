@@ -5,7 +5,7 @@ namespace dbviewer
 {
     class Mysqli
     {
-        private MySqlConnection conn;
+        public MySqlConnection conn;
         private int affected_rows = 0;
         private string connect_error = "";
         private string error = "";
@@ -27,11 +27,11 @@ namespace dbviewer
             get { return conn.DataSource; }
         }
 
-        public Mysqli(string host, string username, string passwd)
+        private Mysqli(string connectionString)
         {
             try
             {
-                conn = new MySqlConnection("Server=" + host + ";port=3306;User Id=" + username + ";password=" + passwd);
+                conn = new MySqlConnection(connectionString);
                 conn.Open();
             }
             catch (Exception er)
@@ -39,18 +39,12 @@ namespace dbviewer
                 connect_error = er.Message;
             }
         }
-        public Mysqli(string host, string username, string passwd, int port)
-        {
-            try
-            {
-                conn = new MySqlConnection("Server=" + host + ";port=" + port + ";User Id=" + username + ";password=" + passwd);
-                conn.Open();
-            }
-            catch (Exception er)
-            {
-                connect_error = er.Message;
-            }
-        }
+
+        public Mysqli(string host, string username, string passwd) : this("Server=" + host + ";port=3306;User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
+        { }
+
+        public Mysqli(string host, string username, string passwd, int port) : this("Server=" + host + ";port=" + port + ";User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
+        { }
 
         public void Close()
         {
