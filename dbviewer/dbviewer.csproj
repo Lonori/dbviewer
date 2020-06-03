@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -69,6 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomTable.cs" />
+    <Compile Include="FormProcedure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProcedure.Designer.cs">
+      <DependentUpon>FormProcedure.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,17 +90,42 @@
     <Compile Include="FormMain.Modules.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormTables.cs" />
+    <Compile Include="FormProgrammInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProgrammInfo.Designer.cs">
+      <DependentUpon>FormProgrammInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrigger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrigger.Designer.cs">
+      <DependentUpon>FormTrigger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Table_ListTable.cs" />
     <Compile Include="DBtool.cs" />
     <Compile Include="PanelTriger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="InfoShow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Table_CreateTable.cs" />
+    <Compile Include="Table_Trigger.cs" />
+    <Compile Include="Table_Procedure.cs" />
+    <Compile Include="Table_ProcedureParams.cs" />
+    <EmbeddedResource Include="FormProcedure.resx">
+      <DependentUpon>FormProcedure.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormConnect.resx">
       <DependentUpon>FormConnect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormProgrammInfo.resx">
+      <DependentUpon>FormProgrammInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrigger.resx">
+      <DependentUpon>FormTrigger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -169,6 +200,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\icon.png" />
+    <None Include="Resources\b_trigger_add.png" />
+    <None Include="Resources\b_routine_add.png" />
     <None Include="Resources\b_search.png" />
     <None Include="Resources\b_save.png" />
   </ItemGroup>

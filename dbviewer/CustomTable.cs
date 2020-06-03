@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -10,8 +9,14 @@ namespace dbviewer
     {
         protected TableLayoutPanel element;
         protected string[] columns;
+        protected Color header_color = SystemColors.ActiveCaption;
         protected int row_height = 30;
 
+        public Color HeaderColor
+        {
+            get { return header_color; }
+            set { header_color = value; }
+        }
         public int RowHeight
         {
             get { return row_height; }
@@ -32,7 +37,7 @@ namespace dbviewer
             SetColumns(columns);
         }
 
-        public virtual void AddRow(Control[] controls)
+        public void AddRow(Control[] controls)
         {
             if (controls.Length > element.ColumnCount) throw new Exception("Column overflow");
             element.RowCount += 1;
@@ -70,7 +75,7 @@ namespace dbviewer
         {
             return new Label()
             {
-                BackColor = SystemColors.ActiveCaption,
+                BackColor = header_color,
                 Dock = DockStyle.Fill,
                 Margin = new Padding(0),
                 Text = name,
@@ -99,7 +104,7 @@ namespace dbviewer
         public CustomTableIndexed(TableLayoutPanel element) : base(element) { }
         public CustomTableIndexed(TableLayoutPanel element, string[] columns) : base(element, columns) { }
 
-        public override void AddRow(Control[] controls)
+        public new void AddRow(Control[] controls)
         {
             if (controls.Length < columns.Length) throw new Exception("Column amount error");
             base.AddRow(controls);

@@ -28,9 +28,31 @@ namespace dbviewer
                 {
                     string table_name = reader.GetString(0);
                     db_node.Nodes.Add(new TreeNode(table_name) { ImageIndex = 1 });
-                    ct_list.AddRow(table_name, reader.GetString(3), reader.GetString(1), reader.GetString(2));
+                    ct_db_struct.AddRow(table_name, reader.GetString(3), reader.GetString(1), reader.GetString(2));
                 }
                 db_node.Expand();
+            }
+        }
+
+        private void UpdateProcedureList()
+        {
+            using (MySqlDataReader reader = DB.Read("SHOW PROCEDURE STATUS WHERE `Db`='" + DB.Database + "'"))
+            {
+                while (reader.Read())
+                {
+                    ct_procedure_list.AddRow(reader.GetString(1), reader.GetString(2));
+                }
+            }
+        }
+
+        private void UpdateTriggerList()
+        {
+            using (MySqlDataReader reader = DB.Read("SHOW TRIGGERS FROM `" + DB.Database + "`"))
+            {
+                while (reader.Read())
+                {
+                    ct_trigger_list.AddRow(reader.GetString(0), reader.GetString(4), reader.GetString(1));
+                }
             }
         }
 
@@ -63,11 +85,13 @@ namespace dbviewer
 
         private void pt_table_changer(Panel panel)
         {
-            ct_list.Clear();
-            ct_create.Clear();
+            ct_db_struct.Clear();
+            ct_tbl_create.Clear();
+            ct_procedure_list.Clear();
+            ct_trigger_list.Clear();
             sql_input.Clear();
             textbox_table_name.Clear();
-            if (!panel_table_data.Equals(panel))
+            if (!panel_sql_result.Equals(panel))
             {
                 search_input.Clear();
                 SaveDB();
@@ -87,7 +111,7 @@ namespace dbviewer
             }
             else
             {
-                if (panel.Equals(panel_table_data))
+                if (panel.Equals(panel_sql_result))
                 {
                     tool_panel_tsb1.Visible = true;
                 }

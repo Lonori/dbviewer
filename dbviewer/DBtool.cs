@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace dbviewer
 {
-    class DBtool
+    public class DBtool
     {
         private MySqlConnection conn;
         private MySqlDataAdapter data_adapter;

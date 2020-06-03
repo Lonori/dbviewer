@@ -36,11 +36,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel_database = new System.Windows.Forms.Panel();
-            this.panel_table_data = new System.Windows.Forms.Panel();
-            this.panel_table_list = new System.Windows.Forms.Panel();
-            this.table_tables = new System.Windows.Forms.TableLayoutPanel();
+            this.panel_procedure_list = new System.Windows.Forms.Panel();
+            this.table_procedure = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel_sql = new System.Windows.Forms.Panel();
             this.sql_input = new System.Windows.Forms.TextBox();
+            this.button_sql_execute = new System.Windows.Forms.Button();
+            this.panel_sql_result = new System.Windows.Forms.Panel();
+            this.panel_db_structure = new System.Windows.Forms.Panel();
+            this.table_tables = new System.Windows.Forms.TableLayoutPanel();
             this.panel_table_create = new System.Windows.Forms.Panel();
             this.table_creator = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -61,12 +65,16 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.sub_split = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.log_box = new System.Windows.Forms.TextBox();
             this.main_menu_strip = new System.Windows.Forms.MenuStrip();
             this.mms_tsmi1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mms_tsmi2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.button_sql_execute = new System.Windows.Forms.Button();
-            this.log_box = new System.Windows.Forms.TextBox();
+            this.panel_trigger_list = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.table_trigger = new System.Windows.Forms.TableLayoutPanel();
             this.create_bd = new System.Windows.Forms.Button();
+            this.button_trig_create = new System.Windows.Forms.Button();
+            this.button_proc_create = new System.Windows.Forms.Button();
             this.tool_panel_tsb1 = new System.Windows.Forms.ToolStripButton();
             this.tool_panel_tsb2 = new System.Windows.Forms.ToolStripButton();
             this.tool_panel_tsb3 = new System.Windows.Forms.ToolStripButton();
@@ -80,9 +88,11 @@
             this.button_search = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.table_query_result)).BeginInit();
             this.panel_database.SuspendLayout();
-            this.panel_table_data.SuspendLayout();
-            this.panel_table_list.SuspendLayout();
+            this.panel_procedure_list.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.panel_sql.SuspendLayout();
+            this.panel_sql_result.SuspendLayout();
+            this.panel_db_structure.SuspendLayout();
             this.panel_table_create.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tool_panel_container.SuspendLayout();
@@ -101,6 +111,8 @@
             this.sub_split.SuspendLayout();
             this.panel2.SuspendLayout();
             this.main_menu_strip.SuspendLayout();
+            this.panel_trigger_list.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // db_tree_list
@@ -165,9 +177,11 @@
             // panel_database
             // 
             this.panel_database.BackColor = System.Drawing.Color.Transparent;
+            this.panel_database.Controls.Add(this.panel_trigger_list);
+            this.panel_database.Controls.Add(this.panel_procedure_list);
             this.panel_database.Controls.Add(this.panel_sql);
-            this.panel_database.Controls.Add(this.panel_table_data);
-            this.panel_database.Controls.Add(this.panel_table_list);
+            this.panel_database.Controls.Add(this.panel_sql_result);
+            this.panel_database.Controls.Add(this.panel_db_structure);
             this.panel_database.Controls.Add(this.panel_table_create);
             this.panel_database.Controls.Add(this.tool_panel_container);
             this.panel_database.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -178,47 +192,49 @@
             this.panel_database.TabIndex = 7;
             this.panel_database.Visible = false;
             // 
-            // panel_table_data
+            // panel_procedure_list
             // 
-            this.panel_table_data.Controls.Add(this.table_query_result);
-            this.panel_table_data.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_table_data.Location = new System.Drawing.Point(0, 32);
-            this.panel_table_data.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_table_data.Name = "panel_table_data";
-            this.panel_table_data.Size = new System.Drawing.Size(780, 389);
-            this.panel_table_data.TabIndex = 4;
-            this.panel_table_data.Visible = false;
+            this.panel_procedure_list.Controls.Add(this.table_procedure);
+            this.panel_procedure_list.Controls.Add(this.tableLayoutPanel3);
+            this.panel_procedure_list.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_procedure_list.Location = new System.Drawing.Point(0, 32);
+            this.panel_procedure_list.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_procedure_list.Name = "panel_procedure_list";
+            this.panel_procedure_list.Size = new System.Drawing.Size(780, 389);
+            this.panel_procedure_list.TabIndex = 2;
+            this.panel_procedure_list.Visible = false;
             // 
-            // panel_table_list
+            // table_procedure
             // 
-            this.panel_table_list.AutoScroll = true;
-            this.panel_table_list.Controls.Add(this.table_tables);
-            this.panel_table_list.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_table_list.Location = new System.Drawing.Point(0, 32);
-            this.panel_table_list.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_table_list.Name = "panel_table_list";
-            this.panel_table_list.Size = new System.Drawing.Size(780, 389);
-            this.panel_table_list.TabIndex = 2;
-            this.panel_table_list.Visible = false;
+            this.table_procedure.ColumnCount = 3;
+            this.table_procedure.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.table_procedure.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.table_procedure.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_procedure.Dock = System.Windows.Forms.DockStyle.Top;
+            this.table_procedure.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.table_procedure.Location = new System.Drawing.Point(0, 40);
+            this.table_procedure.Margin = new System.Windows.Forms.Padding(0);
+            this.table_procedure.Name = "table_procedure";
+            this.table_procedure.RowCount = 1;
+            this.table_procedure.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.table_procedure.Size = new System.Drawing.Size(780, 30);
+            this.table_procedure.TabIndex = 2;
             // 
-            // table_tables
+            // tableLayoutPanel3
             // 
-            this.table_tables.BackColor = System.Drawing.Color.Transparent;
-            this.table_tables.ColumnCount = 5;
-            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.table_tables.Dock = System.Windows.Forms.DockStyle.Top;
-            this.table_tables.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.table_tables.Location = new System.Drawing.Point(0, 0);
-            this.table_tables.Margin = new System.Windows.Forms.Padding(0);
-            this.table_tables.Name = "table_tables";
-            this.table_tables.RowCount = 1;
-            this.table_tables.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.table_tables.Size = new System.Drawing.Size(780, 30);
-            this.table_tables.TabIndex = 0;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.button_proc_create, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(780, 40);
+            this.tableLayoutPanel3.TabIndex = 1;
             // 
             // panel_sql
             // 
@@ -242,6 +258,62 @@
             this.sql_input.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.sql_input.Size = new System.Drawing.Size(780, 357);
             this.sql_input.TabIndex = 0;
+            // 
+            // button_sql_execute
+            // 
+            this.button_sql_execute.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button_sql_execute.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button_sql_execute.FlatAppearance.BorderSize = 0;
+            this.button_sql_execute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_sql_execute.Location = new System.Drawing.Point(0, 357);
+            this.button_sql_execute.Name = "button_sql_execute";
+            this.button_sql_execute.Size = new System.Drawing.Size(780, 32);
+            this.button_sql_execute.TabIndex = 1;
+            this.button_sql_execute.Text = "Выпонить";
+            this.button_sql_execute.UseVisualStyleBackColor = false;
+            this.button_sql_execute.Click += new System.EventHandler(this.button_sql_execute_Click);
+            // 
+            // panel_sql_result
+            // 
+            this.panel_sql_result.Controls.Add(this.table_query_result);
+            this.panel_sql_result.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_sql_result.Location = new System.Drawing.Point(0, 32);
+            this.panel_sql_result.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_sql_result.Name = "panel_sql_result";
+            this.panel_sql_result.Size = new System.Drawing.Size(780, 389);
+            this.panel_sql_result.TabIndex = 4;
+            this.panel_sql_result.Visible = false;
+            // 
+            // panel_db_structure
+            // 
+            this.panel_db_structure.AutoScroll = true;
+            this.panel_db_structure.Controls.Add(this.table_tables);
+            this.panel_db_structure.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_db_structure.Location = new System.Drawing.Point(0, 32);
+            this.panel_db_structure.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_db_structure.Name = "panel_db_structure";
+            this.panel_db_structure.Size = new System.Drawing.Size(780, 389);
+            this.panel_db_structure.TabIndex = 2;
+            this.panel_db_structure.Visible = false;
+            // 
+            // table_tables
+            // 
+            this.table_tables.BackColor = System.Drawing.Color.Transparent;
+            this.table_tables.ColumnCount = 5;
+            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.table_tables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.table_tables.Dock = System.Windows.Forms.DockStyle.Top;
+            this.table_tables.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.table_tables.Location = new System.Drawing.Point(0, 0);
+            this.table_tables.Margin = new System.Windows.Forms.Padding(0);
+            this.table_tables.Name = "table_tables";
+            this.table_tables.RowCount = 1;
+            this.table_tables.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.table_tables.Size = new System.Drawing.Size(780, 30);
+            this.table_tables.TabIndex = 0;
             // 
             // panel_table_create
             // 
@@ -549,6 +621,21 @@
             this.panel2.Size = new System.Drawing.Size(780, 112);
             this.panel2.TabIndex = 6;
             // 
+            // log_box
+            // 
+            this.log_box.BackColor = System.Drawing.SystemColors.Window;
+            this.log_box.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.log_box.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.log_box.Font = new System.Drawing.Font("Ubuntu Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.log_box.Location = new System.Drawing.Point(0, 23);
+            this.log_box.Margin = new System.Windows.Forms.Padding(0);
+            this.log_box.Multiline = true;
+            this.log_box.Name = "log_box";
+            this.log_box.ReadOnly = true;
+            this.log_box.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.log_box.Size = new System.Drawing.Size(778, 87);
+            this.log_box.TabIndex = 1;
+            // 
             // main_menu_strip
             // 
             this.main_menu_strip.BackColor = System.Drawing.Color.Transparent;
@@ -573,35 +660,52 @@
             this.mms_tsmi2.Name = "mms_tsmi2";
             this.mms_tsmi2.Size = new System.Drawing.Size(94, 20);
             this.mms_tsmi2.Text = "О программе";
+            this.mms_tsmi2.Click += new System.EventHandler(this.mms_tsmi2_Click);
             // 
-            // button_sql_execute
+            // panel_trigger_list
             // 
-            this.button_sql_execute.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.button_sql_execute.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button_sql_execute.FlatAppearance.BorderSize = 0;
-            this.button_sql_execute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_sql_execute.Location = new System.Drawing.Point(0, 357);
-            this.button_sql_execute.Name = "button_sql_execute";
-            this.button_sql_execute.Size = new System.Drawing.Size(780, 32);
-            this.button_sql_execute.TabIndex = 1;
-            this.button_sql_execute.Text = "Выпонить";
-            this.button_sql_execute.UseVisualStyleBackColor = false;
-            this.button_sql_execute.Click += new System.EventHandler(this.button_sql_execute_Click);
+            this.panel_trigger_list.Controls.Add(this.table_trigger);
+            this.panel_trigger_list.Controls.Add(this.tableLayoutPanel4);
+            this.panel_trigger_list.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_trigger_list.Location = new System.Drawing.Point(0, 32);
+            this.panel_trigger_list.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_trigger_list.Name = "panel_trigger_list";
+            this.panel_trigger_list.Size = new System.Drawing.Size(780, 389);
+            this.panel_trigger_list.TabIndex = 1;
+            this.panel_trigger_list.Visible = false;
             // 
-            // log_box
+            // tableLayoutPanel4
             // 
-            this.log_box.BackColor = System.Drawing.SystemColors.Window;
-            this.log_box.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.log_box.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.log_box.Font = new System.Drawing.Font("Ubuntu Mono", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.log_box.Location = new System.Drawing.Point(0, 23);
-            this.log_box.Margin = new System.Windows.Forms.Padding(0);
-            this.log_box.Multiline = true;
-            this.log_box.Name = "log_box";
-            this.log_box.ReadOnly = true;
-            this.log_box.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.log_box.Size = new System.Drawing.Size(778, 87);
-            this.log_box.TabIndex = 1;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.button_trig_create, 0, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.Padding = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(780, 40);
+            this.tableLayoutPanel4.TabIndex = 2;
+            // 
+            // table_trigger
+            // 
+            this.table_trigger.ColumnCount = 4;
+            this.table_trigger.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.table_trigger.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.table_trigger.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.table_trigger.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.table_trigger.Dock = System.Windows.Forms.DockStyle.Top;
+            this.table_trigger.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.table_trigger.Location = new System.Drawing.Point(0, 40);
+            this.table_trigger.Margin = new System.Windows.Forms.Padding(0);
+            this.table_trigger.Name = "table_trigger";
+            this.table_trigger.RowCount = 1;
+            this.table_trigger.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.table_trigger.Size = new System.Drawing.Size(780, 30);
+            this.table_trigger.TabIndex = 3;
             // 
             // create_bd
             // 
@@ -619,6 +723,42 @@
             this.create_bd.Text = "Создать БД";
             this.create_bd.UseVisualStyleBackColor = false;
             this.create_bd.Click += new System.EventHandler(this.create_bd_Click);
+            // 
+            // button_trig_create
+            // 
+            this.button_trig_create.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button_trig_create.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_trig_create.FlatAppearance.BorderSize = 0;
+            this.button_trig_create.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_trig_create.Image = global::dbviewer.Properties.Resources.b_trigger_add;
+            this.button_trig_create.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_trig_create.Location = new System.Drawing.Point(4, 4);
+            this.button_trig_create.Margin = new System.Windows.Forms.Padding(0);
+            this.button_trig_create.Name = "button_trig_create";
+            this.button_trig_create.Size = new System.Drawing.Size(220, 32);
+            this.button_trig_create.TabIndex = 0;
+            this.button_trig_create.Text = "Добавить триггер";
+            this.button_trig_create.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_trig_create.UseVisualStyleBackColor = false;
+            this.button_trig_create.Click += new System.EventHandler(this.button_trig_create_Click);
+            // 
+            // button_proc_create
+            // 
+            this.button_proc_create.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.button_proc_create.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_proc_create.FlatAppearance.BorderSize = 0;
+            this.button_proc_create.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_proc_create.Image = global::dbviewer.Properties.Resources.b_routine_add;
+            this.button_proc_create.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_proc_create.Location = new System.Drawing.Point(4, 4);
+            this.button_proc_create.Margin = new System.Windows.Forms.Padding(0);
+            this.button_proc_create.Name = "button_proc_create";
+            this.button_proc_create.Size = new System.Drawing.Size(220, 32);
+            this.button_proc_create.TabIndex = 0;
+            this.button_proc_create.Text = "Добавить процедуру";
+            this.button_proc_create.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_proc_create.UseVisualStyleBackColor = false;
+            this.button_proc_create.Click += new System.EventHandler(this.button_proc_create_Click);
             // 
             // tool_panel_tsb1
             // 
@@ -755,10 +895,12 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.table_query_result)).EndInit();
             this.panel_database.ResumeLayout(false);
-            this.panel_table_data.ResumeLayout(false);
-            this.panel_table_list.ResumeLayout(false);
+            this.panel_procedure_list.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.panel_sql.ResumeLayout(false);
             this.panel_sql.PerformLayout();
+            this.panel_sql_result.ResumeLayout(false);
+            this.panel_db_structure.ResumeLayout(false);
             this.panel_table_create.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -786,6 +928,8 @@
             this.panel2.PerformLayout();
             this.main_menu_strip.ResumeLayout(false);
             this.main_menu_strip.PerformLayout();
+            this.panel_trigger_list.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -802,7 +946,7 @@
         private System.Windows.Forms.Button create_database;
         private System.Windows.Forms.TextBox name_new_db;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel_table_list;
+        private System.Windows.Forms.Panel panel_db_structure;
         private System.Windows.Forms.TableLayoutPanel table_tables;
         private System.Windows.Forms.Panel panel_table_create;
         private System.Windows.Forms.TableLayoutPanel table_creator;
@@ -813,7 +957,7 @@
         private System.Windows.Forms.SplitContainer main_split;
         private System.Windows.Forms.SplitContainer sub_split;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel_table_data;
+        private System.Windows.Forms.Panel panel_sql_result;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tool_panel_container;
         private System.Windows.Forms.TextBox search_input;
@@ -840,6 +984,14 @@
         private System.Windows.Forms.Button button_sql_execute;
         private System.Windows.Forms.TextBox log_box;
         private System.Windows.Forms.Button button_search;
+        private System.Windows.Forms.Panel panel_procedure_list;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Button button_proc_create;
+        private System.Windows.Forms.TableLayoutPanel table_procedure;
+        private System.Windows.Forms.Panel panel_trigger_list;
+        private System.Windows.Forms.TableLayoutPanel table_trigger;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Button button_trig_create;
     }
 }
 
