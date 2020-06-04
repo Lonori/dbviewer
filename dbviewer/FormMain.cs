@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace dbviewer
@@ -116,7 +117,7 @@ namespace dbviewer
                 DB.SelectDB(e.Node.Text);
                 pt_db_func.ChangeActivePanel(panel_database);
                 pt_table_changer(panel_db_structure);
-                UpdateTableTree(e.Node);
+                UpdateTableTree();
             }
             else
             {
@@ -152,6 +153,7 @@ namespace dbviewer
 
         private void create_bd_Click(object sender, EventArgs e)
         {
+            db_tree_list.SelectedNode = null;
             pt_db_func.ChangeActivePanel(panel_db_create);
         }
 
@@ -210,7 +212,7 @@ namespace dbviewer
             if (DB.Write(sql))
             {
                 pt_table_changer(panel_db_structure);
-                UpdateTableTree(db_tree_list.SelectedNode);
+                UpdateTableTree();
                 info.Log(sql);
             }
             else
@@ -234,10 +236,10 @@ namespace dbviewer
 
         private void button_sql_execute_Click(object sender, EventArgs e)
         {
-            SqlQueryStatus result = DB.ReadInCache(sql_input.Text);
-            if (result != SqlQueryStatus.Error)
+            DBtool.SqlQueryStatus result = DB.ReadInCache(sql_input.Text);
+            if (result != DBtool.SqlQueryStatus.Error)
             {
-                if (result == SqlQueryStatus.Ok) pt_table_changer(panel_sql_result);
+                if (result == DBtool.SqlQueryStatus.Ok) pt_table_changer(panel_sql_result);
                 info.Log(sql_input.Text);
             }
             else
@@ -275,7 +277,7 @@ namespace dbviewer
                     }
                     if (reader.HasRows) sql = sql.Remove(sql.Length - 3);
                 }
-                SqlQueryStatus result = DB.ReadInCache(sql);
+                DBtool.SqlQueryStatus result = DB.ReadInCache(sql);
                 pt_table_changer(panel_sql_result);
             }
         }
@@ -306,6 +308,30 @@ namespace dbviewer
             ft.Dispose();
         }
 
+        private void mms_tsmi22_Click(object sender, EventArgs e)
+        {
+            FormProgrammInfo fpi = new FormProgrammInfo();
+            fpi.ShowDialog();
+            fpi.Dispose();
+        }
+
+        private void mms_tsmi11_Click(object sender, EventArgs e)
+        {
+            file_save_dialog.FileName = DB.Database + ".sql";
+            if (file_save_dialog.ShowDialog() != DialogResult.OK) return;
+            Cursor = Cursors.WaitCursor;
+            DB.BackupComplete += backup_complete;
+            DB.Backup(file_save_dialog.FileName);
+        }
+
+        private void mms_tsmi12_Click(object sender, EventArgs e)
+        {
+            if (file_open_dialog.ShowDialog() != DialogResult.OK) return;
+            Cursor = Cursors.WaitCursor;
+            DB.RestoreComplete += restore_complete;
+            DB.Restore(file_open_dialog.FileName);
+        }
+
         private void tool_panel_tsb_Click(object sender, EventArgs e)
         {
             ToolStripButton elem = (ToolStripButton)sender;
@@ -315,7 +341,7 @@ namespace dbviewer
                 if (elem.Name == "tool_panel_tsb3")
                 {
                     pt_table_changer(panel_db_structure);
-                    UpdateTableTree(db_tree_list.SelectedNode);
+                    UpdateTableTree();
                 }
                 if (elem.Name == "tool_panel_tsb4")
                 {
@@ -373,11 +399,12 @@ namespace dbviewer
                 if (elem.Name == "tool_panel_tsb9")
                 {
                     if (!InfoShow.Confirm("Вы действительно хотите удалить данную таблицу?")) return;
-                    if (!DB.Write("DROP TABLE `" + db_tree_list.SelectedNode.Text + "`"))
+                    string sql_text = "DROP TABLE `" + db_tree_list.SelectedNode.Text + "`";
+                    if (DB.Write(sql_text))
                     {
-                        UpdateTableTree(db_tree_list.SelectedNode.Parent);
                         pt_table_changer(panel_db_structure);
-                        info.Log("DROP TABLE `" + db_tree_list.SelectedNode.Text + "`");
+                        UpdateTableTree();
+                        info.Log(sql_text);
                     }
                     else
                     {
@@ -387,13 +414,6 @@ namespace dbviewer
                     }
                 }
             }
-        }
-
-        private void mms_tsmi2_Click(object sender, EventArgs e)
-        {
-            FormProgrammInfo fpi = new FormProgrammInfo();
-            fpi.ShowDialog();
-            fpi.Dispose();
         }
     }
 }

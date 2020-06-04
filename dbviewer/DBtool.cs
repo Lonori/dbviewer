@@ -16,6 +16,28 @@ namespace dbviewer
         private string connect_error = "";
         private string error = "";
 
+        private DBtool(string connectionString)
+        {
+            try
+            {
+                conn = new MySqlConnection(connectionString);
+                conn.Open();
+                data_adapter = new MySqlDataAdapter();
+                command_builder = new MySqlCommandBuilder(data_adapter);
+                data_cache = new DataSet();
+            }
+            catch (Exception e)
+            {
+                connect_error = e.Message;
+            }
+        }
+        public DBtool(string host, string username, string passwd) :
+        this("Server=" + host + ";port=3306;User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
+        { }
+        public DBtool(string host, string username, string passwd, int port) :
+        this("Server=" + host + ";port=" + port + ";User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
+        { }
+
         public int AffectedRows
         {
             get { return affected_rows; }
@@ -37,36 +59,14 @@ namespace dbviewer
             get { return conn.DataSource; }
         }
 
-        private DBtool(string connectionString)
-        {
-            try
-            {
-                conn = new MySqlConnection(connectionString);
-                conn.Open();
-                data_adapter = new MySqlDataAdapter();
-                command_builder = new MySqlCommandBuilder(data_adapter);
-                data_cache = new DataSet();
-            }
-            catch (Exception e)
-            {
-                connect_error = e.Message;
-            }
-        }
-
-        public DBtool(string host, string username, string passwd) :
-        this("Server=" + host + ";port=3306;User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
-        { }
-
-        public DBtool(string host, string username, string passwd, int port) :
-        this("Server=" + host + ";port=" + port + ";User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
-        { }
+        public event backupComplete BackupComplete;
+        public event restoreComplete RestoreComplete;
 
         public void Close()
         {
             conn.Close();
             conn.Dispose();
         }
-
         public void AddCommentColumn(string table_name)
         {
             using (MySqlDataReader reader = Read(
@@ -91,12 +91,10 @@ namespace dbviewer
                 }
             }
         }
-
         public void DataGridInclude(DataGridView table)
         {
             data_grid = table;
         }
-
         public SqlQueryStatus ReadInCache(string query)
         {
             try
@@ -104,7 +102,8 @@ namespace dbviewer
                 data_cache.Tables.Clear();
                 data_adapter.SelectCommand = new MySqlCommand(query, conn);
                 data_adapter.Fill(data_cache);
-                if (data_cache.Tables.Count > 0) {
+                if (data_cache.Tables.Count > 0)
+                {
                     data_grid.DataSource = data_cache.Tables[0];
                     return SqlQueryStatus.Ok;
                 }
@@ -116,19 +115,16 @@ namespace dbviewer
             }
             return SqlQueryStatus.Error;
         }
-
         public SqlQueryStatus ReadInCache(string query, string table_name)
         {
             SqlQueryStatus resp = ReadInCache(query);
             if (resp == SqlQueryStatus.Ok) AddCommentColumn(table_name);
             return resp;
         }
-
         public bool HasChanges()
         {
             return data_cache.HasChanges();
         }
-
         public bool SaveChange()
         {
             try
@@ -144,7 +140,6 @@ namespace dbviewer
             }
             return false;
         }
-
         public MySqlDataReader Read(string query)
         {
             try
@@ -158,7 +153,6 @@ namespace dbviewer
             }
             return null;
         }
-
         public bool Write(string query)
         {
             try
@@ -173,7 +167,6 @@ namespace dbviewer
             }
             return false;
         }
-
         public bool SelectDB(string dbname)
         {
             try
@@ -187,12 +180,48 @@ namespace dbviewer
             }
             return false;
         }
-    }
+        public void Backup(string file_path)
+        {
+            using (MySqlCommand cmd = new MySqlCommand())
+            {
+                using (MySqlBackup mb = new MySqlBackup(cmd))
+                {
+                    cmd.Connection = conn;
+                    mb.ExportCompleted += backup_complete;
+                    mb.ExportToFile(file_path);
+                }
+            }
+        }
+        public void Restore(string file_path)
+        {
+            using (MySqlCommand cmd = new MySqlCommand())
+            {
+                using (MySqlBackup mb = new MySqlBackup(cmd))
+                {
+                    cmd.Connection = conn;
+                    mb.ImportCompleted += restore_complete;
+                    mb.ImportFromFile(file_path);
+                }
+            }
+        }
+        private void backup_complete(object sender, ExportCompleteArgs e)
+        {
+            BackupComplete?.Invoke(sender, e);
+        }
+        private void restore_complete(object sender, ImportCompleteArgs e)
+        {
+            RestoreComplete?.Invoke(sender, e);
+        }
 
-    public enum SqlQueryStatus
-    {
-        Error,
-        Ok,
-        NonQuery
+        public enum SqlQueryStatus
+        {
+            Error,
+            Ok,
+            NonQuery,
+            Empty
+        }
+
+        public delegate void backupComplete(object sender, ExportCompleteArgs e);
+        public delegate void restoreComplete(object sender, ImportCompleteArgs e);
     }
 }

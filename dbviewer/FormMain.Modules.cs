@@ -19,8 +19,11 @@ namespace dbviewer
             }
         }
 
-        private void UpdateTableTree(TreeNode db_node)
+        private void UpdateTableTree()
         {
+            TreeNode db_node;
+            if (db_tree_list.SelectedNode.Parent == null) db_node = db_tree_list.SelectedNode;
+            else db_node = db_tree_list.SelectedNode.Parent;
             using (MySqlDataReader reader = DB.Read("SELECT `TABLE_NAME`,`ENGINE`,`TABLE_ROWS`,`TABLE_COLLATION` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`='" + db_node.Text + "'"))
             {
                 db_node.Nodes.Clear();
@@ -54,6 +57,22 @@ namespace dbviewer
                     ct_trigger_list.AddRow(reader.GetString(0), reader.GetString(4), reader.GetString(1));
                 }
             }
+        }
+
+        private void backup_complete(object sender, ExportCompleteArgs e)
+        {
+            Cursor = Cursors.Default;
+            InfoShow.Alert("Резервное копирование завершено");
+            info.Log("Резервное копирование завершено (" + e.TimeUsed.ToString("hh\\:mm\\:ss") + ") " + e.LastError);
+        }
+
+        private void restore_complete(object sender, ImportCompleteArgs e)
+        {
+            Cursor = Cursors.Default;
+            ct_db_struct.Clear();
+            UpdateTableTree();
+            InfoShow.Alert("Восстановление завершено");
+            info.Log("Восстановление завершено (" + e.TimeUsed.ToString("hh\\:mm\\:ss") + ") " + e.LastError);
         }
 
         private bool SaveDB()

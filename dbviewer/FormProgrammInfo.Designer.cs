@@ -45,7 +45,7 @@
             this.label1.MaximumSize = new System.Drawing.Size(484, 0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(4);
-            this.label1.Size = new System.Drawing.Size(468, 152);
+            this.label1.Size = new System.Drawing.Size(469, 152);
             this.label1.TabIndex = 0;
             this.label1.Text = resources.GetString("label1.Text");
             // 
