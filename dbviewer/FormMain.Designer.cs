@@ -905,6 +905,7 @@
             this.mms_tsmi21.Name = "mms_tsmi21";
             this.mms_tsmi21.Size = new System.Drawing.Size(195, 22);
             this.mms_tsmi21.Text = "Просмотреть справку";
+            this.mms_tsmi21.Click += new System.EventHandler(this.mms_tsmi21_Click);
             // 
             // mms_tsmi22
             // 

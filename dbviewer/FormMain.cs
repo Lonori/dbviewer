@@ -3,7 +3,6 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace dbviewer
@@ -43,6 +42,7 @@ namespace dbviewer
             FormConnect form = new FormConnect();
             bool connected = false;
             string host;
+            string port;
             do
             {
                 form.ShowDialog();
@@ -57,6 +57,7 @@ namespace dbviewer
                 }
 
                 host = form.Hostname;
+                port = form.Port;
                 string username = form.Username;
                 string password = form.Password;
 
@@ -73,7 +74,7 @@ namespace dbviewer
             form.Dispose();
 
             InitializeComponent();
-            Text = host + ":3306 | DB Viewer";
+            Text = host + ":" + port + " | DB Viewer";
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -257,7 +258,7 @@ namespace dbviewer
             }
             else
             {
-                if(search_input.Text == "")
+                if (search_input.Text == "")
                 {
                     pt_table_changer(panel_sql_result);
                     DB.ReadInCache("SELECT * FROM `" + db_tree_list.SelectedNode.Text + "`", db_tree_list.SelectedNode.Text);
@@ -286,7 +287,7 @@ namespace dbviewer
         {
             FormProcedure fp = new FormProcedure(DB);
             fp.ShowDialog();
-            if(fp.Sql != "")
+            if (fp.Sql != "")
             {
                 ct_procedure_list.Clear();
                 UpdateProcedureList();
@@ -414,6 +415,14 @@ namespace dbviewer
                     }
                 }
             }
+        }
+
+        private void mms_tsmi21_Click(object sender, EventArgs e)
+        {
+            var proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = "help.chm";
+            proc.StartInfo.UseShellExecute = true;
+            proc.Start();
         }
     }
 }
