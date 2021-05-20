@@ -4,40 +4,19 @@ using System.Windows.Forms;
 
 namespace dbviewer
 {
-    class Table_ProcedureParams : CustomTableIndexed
+    class Table_ProcedureParams : CustomTable
     {
-        public Table_ProcedureParams(TableLayoutPanel element) : base(element, new string[] { "Направление", "Имя", "Тип", "Размер" }) { }
+        public Table_ProcedureParams(TableLayoutPanel element) : base(element, new string[] { "Направление", "Имя", "Тип", "Размер", "" }) { }
 
         public void AddRow()
         {
-            base.AddRow(new Control[] {
+            AddRow(new Control[] {
                 create_combobox_table(new object[] {"IN","OUT","INOUT"}),
                 create_textbox_table(),
                 create_combobox_table(new object[] { "INT", "FLOAT", "VARCHAR", "TEXT", "DATE" }),
                 create_textbox_table(),
                 create_button_table(rows.Count)
             });
-        }
-
-        public new void AddRow(Control[] controls)
-        {
-            if (controls.Length > element.ColumnCount) throw new Exception("Column overflow");
-            element.RowCount += 1;
-            element.RowStyles.Add(new RowStyle(SizeType.Absolute, row_height));
-            element.Height += row_height;
-            for (int i = 0; i < controls.Length; i++)
-                element.Controls.Add(controls[i], i, element.RowCount - 1);
-        }
-
-        public new void Clear()
-        {
-            if (element.RowCount == 1) return;
-            element.RowStyles.Clear();
-            element.Controls.Clear();
-            element.Height = 30;
-            element.RowCount = 1;
-            element.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
-            AddNameColumns();
         }
 
         private ComboBox create_combobox_table(object[] collection)
@@ -86,13 +65,8 @@ namespace dbviewer
 
         private void remove_Click(object sender, EventArgs e)
         {
-            rows.RemoveAt((int)((Button)sender).Tag);
-            Clear();
-            for (int i = 0; i < rows.Count; i++)
-            {
-                ((Button)rows[i][4]).Tag = i;
-                AddRow(rows[i]);
-            }
+            RemoveRow((int)((Button)sender).Tag);
+            for (int i = 0; i < rows.Count; i++) ((Button)rows[i][4]).Tag = i;
         }
     }
 }

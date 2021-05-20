@@ -127,14 +127,20 @@
   <data name="b_index" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_index.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="b_routine_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_routine_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="circled_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\circled_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="b_sql" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_sql.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="db_remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\db_remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="b_newdb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\b_newdb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="b_drop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_drop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,37 +154,40 @@
   <data name="b_routines" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_routines.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="b_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\b_search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="no_entry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_entry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="b_insrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_insrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="b_deltbl" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\b_deltbl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="db_remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\db_remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="b_table_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_table_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="b_trigger_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_trigger_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="b_deltbl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\b_deltbl.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="b_props" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_props.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="b_engine" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\b_engine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="b_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="b_newdb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\b_newdb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="b_engine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\b_engine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="b_triggers" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\b_triggers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="show" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\show.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -83,7 +83,7 @@
             this.panel_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_main.Location = new System.Drawing.Point(0, 0);
             this.panel_main.Name = "panel_main";
-            this.panel_main.Size = new System.Drawing.Size(694, 490);
+            this.panel_main.Size = new System.Drawing.Size(684, 461);
             this.panel_main.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -108,13 +108,13 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(694, 458);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(684, 429);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.proc_name, 1, 0);
@@ -124,7 +124,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(694, 40);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(684, 40);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -135,7 +135,7 @@
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Size = new System.Drawing.Size(150, 40);
+            this.label1.Size = new System.Drawing.Size(136, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "Имя процедуры";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -143,17 +143,17 @@
             // proc_name
             // 
             this.proc_name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.proc_name.Location = new System.Drawing.Point(154, 4);
+            this.proc_name.Location = new System.Drawing.Point(140, 4);
             this.proc_name.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.proc_name.Name = "proc_name";
-            this.proc_name.Size = new System.Drawing.Size(536, 32);
+            this.proc_name.Size = new System.Drawing.Size(540, 31);
             this.proc_name.TabIndex = 1;
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.proc_type, 1, 0);
@@ -163,7 +163,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(694, 40);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(684, 40);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // label2
@@ -174,7 +174,7 @@
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
             this.label2.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Size = new System.Drawing.Size(150, 40);
+            this.label2.Size = new System.Drawing.Size(136, 40);
             this.label2.TabIndex = 0;
             this.label2.Text = "Тип";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -186,16 +186,16 @@
             this.proc_type.FormattingEnabled = true;
             this.proc_type.Items.AddRange(new object[] {
             "PROCEDURE"});
-            this.proc_type.Location = new System.Drawing.Point(154, 5);
+            this.proc_type.Location = new System.Drawing.Point(140, 5);
             this.proc_type.Margin = new System.Windows.Forms.Padding(4, 5, 4, 0);
             this.proc_type.Name = "proc_type";
-            this.proc_type.Size = new System.Drawing.Size(536, 31);
+            this.proc_type.Size = new System.Drawing.Size(540, 31);
             this.proc_type.TabIndex = 1;
             // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel1, 1, 0);
@@ -206,7 +206,7 @@
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 107F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(694, 107);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(684, 107);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // label3
@@ -217,7 +217,7 @@
             this.label3.Margin = new System.Windows.Forms.Padding(0);
             this.label3.Name = "label3";
             this.label3.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Size = new System.Drawing.Size(150, 107);
+            this.label3.Size = new System.Drawing.Size(136, 107);
             this.label3.TabIndex = 0;
             this.label3.Text = "Параметры";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -227,10 +227,10 @@
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.proc_table_params);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(150, 0);
+            this.panel1.Location = new System.Drawing.Point(136, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(544, 107);
+            this.panel1.Size = new System.Drawing.Size(548, 107);
             this.panel1.TabIndex = 9;
             // 
             // proc_table_params
@@ -258,7 +258,7 @@
             this.proc_table_params.RowCount = 2;
             this.proc_table_params.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.proc_table_params.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.proc_table_params.Size = new System.Drawing.Size(544, 69);
+            this.proc_table_params.Size = new System.Drawing.Size(548, 69);
             this.proc_table_params.TabIndex = 1;
             // 
             // label4
@@ -268,7 +268,7 @@
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 30);
+            this.label4.Size = new System.Drawing.Size(120, 30);
             this.label4.TabIndex = 0;
             this.label4.Text = "Направление";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -286,17 +286,17 @@
             this.comboBox3.Location = new System.Drawing.Point(4, 35);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 4);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(111, 29);
+            this.comboBox3.Size = new System.Drawing.Size(112, 29);
             this.comboBox3.TabIndex = 1;
             // 
             // textBox3
             // 
             this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Location = new System.Drawing.Point(123, 35);
+            this.textBox3.Location = new System.Drawing.Point(124, 35);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(111, 28);
+            this.textBox3.Size = new System.Drawing.Size(112, 28);
             this.textBox3.TabIndex = 2;
             // 
             // comboBox4
@@ -310,20 +310,20 @@
             "VARCHAR",
             "TEXT",
             "DATE"});
-            this.comboBox4.Location = new System.Drawing.Point(242, 35);
+            this.comboBox4.Location = new System.Drawing.Point(244, 35);
             this.comboBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 4);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(100, 29);
+            this.comboBox4.Size = new System.Drawing.Size(101, 29);
             this.comboBox4.TabIndex = 3;
             // 
             // textBox4
             // 
             this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Location = new System.Drawing.Point(350, 35);
+            this.textBox4.Location = new System.Drawing.Point(353, 35);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(89, 28);
+            this.textBox4.Size = new System.Drawing.Size(90, 28);
             this.textBox4.TabIndex = 4;
             // 
             // button3
@@ -334,7 +334,7 @@
             this.button3.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Image = global::dbviewer.Properties.Resources.b_drop;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(447, 34);
+            this.button3.Location = new System.Drawing.Point(451, 34);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(86, 31);
@@ -347,10 +347,10 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(119, 0);
+            this.label8.Location = new System.Drawing.Point(120, 0);
             this.label8.Margin = new System.Windows.Forms.Padding(0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(119, 30);
+            this.label8.Size = new System.Drawing.Size(120, 30);
             this.label8.TabIndex = 6;
             this.label8.Text = "Имя";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -359,10 +359,10 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(238, 0);
+            this.label9.Location = new System.Drawing.Point(240, 0);
             this.label9.Margin = new System.Windows.Forms.Padding(0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(108, 30);
+            this.label9.Size = new System.Drawing.Size(109, 30);
             this.label9.TabIndex = 7;
             this.label9.Text = "Тип";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -371,10 +371,10 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(346, 0);
+            this.label10.Location = new System.Drawing.Point(349, 0);
             this.label10.Margin = new System.Windows.Forms.Padding(0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(97, 30);
+            this.label10.Size = new System.Drawing.Size(98, 30);
             this.label10.TabIndex = 8;
             this.label10.Text = "Размер";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -383,7 +383,7 @@
             // 
             this.tableLayoutPanel5.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Controls.Add(this.proc_add_param, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -392,7 +392,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(694, 40);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(684, 40);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // proc_add_param
@@ -401,10 +401,10 @@
             this.proc_add_param.Dock = System.Windows.Forms.DockStyle.Fill;
             this.proc_add_param.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
             this.proc_add_param.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.proc_add_param.Location = new System.Drawing.Point(154, 4);
+            this.proc_add_param.Location = new System.Drawing.Point(140, 4);
             this.proc_add_param.Margin = new System.Windows.Forms.Padding(4);
             this.proc_add_param.Name = "proc_add_param";
-            this.proc_add_param.Size = new System.Drawing.Size(536, 32);
+            this.proc_add_param.Size = new System.Drawing.Size(540, 32);
             this.proc_add_param.TabIndex = 0;
             this.proc_add_param.Text = "Добавить параметр";
             this.proc_add_param.UseVisualStyleBackColor = false;
@@ -413,7 +413,7 @@
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.proc_body, 1, 0);
@@ -423,7 +423,7 @@
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(694, 131);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(684, 102);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
             // label5
@@ -434,7 +434,7 @@
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
             this.label5.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Size = new System.Drawing.Size(150, 131);
+            this.label5.Size = new System.Drawing.Size(136, 102);
             this.label5.TabIndex = 0;
             this.label5.Text = "Определение";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -443,28 +443,28 @@
             // 
             this.proc_body.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.proc_body.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.proc_body.Location = new System.Drawing.Point(150, 0);
+            this.proc_body.Location = new System.Drawing.Point(136, 0);
             this.proc_body.Margin = new System.Windows.Forms.Padding(0);
             this.proc_body.Multiline = true;
             this.proc_body.Name = "proc_body";
-            this.proc_body.Size = new System.Drawing.Size(544, 131);
+            this.proc_body.Size = new System.Drawing.Size(548, 102);
             this.proc_body.TabIndex = 1;
             // 
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.proc_resul_type, 1, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 358);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 329);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(694, 40);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(684, 40);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
             // label6
@@ -475,7 +475,7 @@
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
             this.label6.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Size = new System.Drawing.Size(150, 40);
+            this.label6.Size = new System.Drawing.Size(136, 40);
             this.label6.TabIndex = 0;
             this.label6.Text = "Результат";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -484,11 +484,11 @@
             // 
             this.proc_resul_type.AutoSize = true;
             this.proc_resul_type.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.proc_resul_type.Location = new System.Drawing.Point(150, 0);
+            this.proc_resul_type.Location = new System.Drawing.Point(136, 0);
             this.proc_resul_type.Margin = new System.Windows.Forms.Padding(0);
             this.proc_resul_type.Name = "proc_resul_type";
             this.proc_resul_type.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.proc_resul_type.Size = new System.Drawing.Size(544, 40);
+            this.proc_resul_type.Size = new System.Drawing.Size(548, 40);
             this.proc_resul_type.TabIndex = 1;
             this.proc_resul_type.Text = "Детерминированная";
             this.proc_resul_type.UseVisualStyleBackColor = true;
@@ -496,17 +496,17 @@
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.ColumnCount = 2;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.proc_access_sql, 1, 0);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 398);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(0, 369);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(694, 60);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(684, 60);
             this.tableLayoutPanel8.TabIndex = 0;
             // 
             // label7
@@ -517,7 +517,7 @@
             this.label7.Margin = new System.Windows.Forms.Padding(0);
             this.label7.Name = "label7";
             this.label7.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Size = new System.Drawing.Size(150, 60);
+            this.label7.Size = new System.Drawing.Size(136, 60);
             this.label7.TabIndex = 0;
             this.label7.Text = "Доступ к SQL данным";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -532,10 +532,10 @@
             "CONTAINS SQL",
             "READS SQL DATA",
             "MODIFIES SQL DATA"});
-            this.proc_access_sql.Location = new System.Drawing.Point(154, 14);
+            this.proc_access_sql.Location = new System.Drawing.Point(140, 14);
             this.proc_access_sql.Margin = new System.Windows.Forms.Padding(4, 14, 4, 0);
             this.proc_access_sql.Name = "proc_access_sql";
-            this.proc_access_sql.Size = new System.Drawing.Size(536, 31);
+            this.proc_access_sql.Size = new System.Drawing.Size(540, 31);
             this.proc_access_sql.TabIndex = 1;
             // 
             // proc_button_create
@@ -544,9 +544,9 @@
             this.proc_button_create.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.proc_button_create.FlatAppearance.BorderSize = 0;
             this.proc_button_create.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.proc_button_create.Location = new System.Drawing.Point(0, 458);
+            this.proc_button_create.Location = new System.Drawing.Point(0, 429);
             this.proc_button_create.Name = "proc_button_create";
-            this.proc_button_create.Size = new System.Drawing.Size(694, 32);
+            this.proc_button_create.Size = new System.Drawing.Size(684, 32);
             this.proc_button_create.TabIndex = 1;
             this.proc_button_create.Text = "Вперед";
             this.proc_button_create.UseVisualStyleBackColor = false;
@@ -554,14 +554,14 @@
             // 
             // FormProcedure
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 490);
+            this.ClientSize = new System.Drawing.Size(684, 461);
             this.Controls.Add(this.panel_main);
-            this.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "FormProcedure";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Процедура";

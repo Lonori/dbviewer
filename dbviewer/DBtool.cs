@@ -10,7 +10,6 @@ namespace dbviewer
         private MySqlConnection conn;
         private MySqlDataAdapter data_adapter;
         private MySqlCommandBuilder command_builder;
-        private DataGridView data_grid;
         private DataSet data_cache;
         private int affected_rows = 0;
         private string connect_error = "";
@@ -67,35 +66,18 @@ namespace dbviewer
             conn.Close();
             conn.Dispose();
         }
-        public void AddCommentColumn(string table_name)
+
+        public bool ReadFromCache(DataGridView dataGrid)
         {
-            using (MySqlDataReader reader = Read(
-                "SELECT `COLUMN_NAME`,`COLUMN_COMMENT`" +
-                "FROM `information_schema`.`COLUMNS`" +
-                "WHERE `TABLE_SCHEMA` = '" + conn.Database + "' AND `TABLE_NAME` = '" + table_name + "'"
-            ))
+            if(data_cache.Tables.Count > 0)
             {
-                while (reader.Read())
-                {
-                    string column_name = reader.GetString(0);
-                    string column_comment = reader.GetString(1);
-                    if (column_comment == "") continue;
-                    for (int i = 0; i < data_grid.Columns.Count; i++)
-                    {
-                        if (data_grid.Columns[i].Name == column_name)
-                        {
-                            data_grid.Columns[i].HeaderText = column_comment;
-                            break;
-                        }
-                    }
-                }
+                dataGrid.DataSource = data_cache.Tables[0];
+                return true;
             }
+            return false;
         }
-        public void DataGridInclude(DataGridView table)
-        {
-            data_grid = table;
-        }
-        public SqlQueryStatus ReadInCache(string query)
+
+        public SqlQueryStatus ReadIntoCache(string query)
         {
             try
             {
@@ -104,7 +86,7 @@ namespace dbviewer
                 data_adapter.Fill(data_cache);
                 if (data_cache.Tables.Count > 0)
                 {
-                    data_grid.DataSource = data_cache.Tables[0];
+                    //data_grid.DataSource = data_cache.Tables[0];
                     return SqlQueryStatus.Ok;
                 }
                 return SqlQueryStatus.NonQuery;
@@ -115,16 +97,12 @@ namespace dbviewer
             }
             return SqlQueryStatus.Error;
         }
-        public SqlQueryStatus ReadInCache(string query, string table_name)
-        {
-            SqlQueryStatus resp = ReadInCache(query);
-            if (resp == SqlQueryStatus.Ok) AddCommentColumn(table_name);
-            return resp;
-        }
+
         public bool HasChanges()
         {
             return data_cache.HasChanges();
         }
+
         public bool SaveChange()
         {
             try
@@ -140,6 +118,7 @@ namespace dbviewer
             }
             return false;
         }
+
         public MySqlDataReader Read(string query)
         {
             try
@@ -153,6 +132,7 @@ namespace dbviewer
             }
             return null;
         }
+
         public bool Write(string query)
         {
             try
@@ -167,6 +147,7 @@ namespace dbviewer
             }
             return false;
         }
+
         public bool SelectDB(string dbname)
         {
             try
@@ -180,6 +161,7 @@ namespace dbviewer
             }
             return false;
         }
+
         public void Backup(string file_path)
         {
             using (MySqlCommand cmd = new MySqlCommand())
@@ -192,6 +174,7 @@ namespace dbviewer
                 }
             }
         }
+
         public void Restore(string file_path)
         {
             using (MySqlCommand cmd = new MySqlCommand())
@@ -204,24 +187,26 @@ namespace dbviewer
                 }
             }
         }
+
         private void backup_complete(object sender, ExportCompleteArgs e)
         {
             BackupComplete?.Invoke(sender, e);
         }
+
         private void restore_complete(object sender, ImportCompleteArgs e)
         {
             RestoreComplete?.Invoke(sender, e);
         }
 
-        public enum SqlQueryStatus
-        {
-            Error,
-            Ok,
-            NonQuery,
-            Empty
-        }
-
         public delegate void backupComplete(object sender, ExportCompleteArgs e);
         public delegate void restoreComplete(object sender, ImportCompleteArgs e);
+    }
+
+    public enum SqlQueryStatus
+    {
+        Error,
+        Ok,
+        NonQuery,
+        Empty
     }
 }

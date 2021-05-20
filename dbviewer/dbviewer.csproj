@@ -24,7 +24,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -92,9 +92,6 @@
     <Compile Include="FormConnect.Designer.cs">
       <DependentUpon>FormConnect.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.Modules.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="FormProgrammInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,15 +104,61 @@
     <Compile Include="FormTrigger.Designer.cs">
       <DependentUpon>FormTrigger.cs</DependentUpon>
     </Compile>
-    <Compile Include="Table_ListTable.cs" />
+    <Compile Include="PanelDbCreate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PanelDbCreate.Designer.cs">
+      <DependentUpon>PanelDbCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelDbView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PanelDbView.Designer.cs">
+      <DependentUpon>PanelDbView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelProcedure.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PanelProcedure.Designer.cs">
+      <DependentUpon>PanelProcedure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelSql.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PanelSql.Designer.cs">
+      <DependentUpon>PanelSql.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelTableCreate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PanelTableCreate.Designer.cs">
+      <DependentUpon>PanelTableCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelTableData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PanelTableData.Designer.cs">
+      <DependentUpon>PanelTableData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelTableList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PanelTableList.Designer.cs">
+      <DependentUpon>PanelTableList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelTrigger.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PanelTrigger.Designer.cs">
+      <DependentUpon>PanelTrigger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Table.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DBtool.cs" />
-    <Compile Include="PanelTriger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="InfoShow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Table_CreateTable.cs" />
-    <Compile Include="Table_Trigger.cs" />
-    <Compile Include="Table_Procedure.cs" />
     <Compile Include="Table_ProcedureParams.cs" />
     <EmbeddedResource Include="FormProcedure.resx">
       <DependentUpon>FormProcedure.cs</DependentUpon>
@@ -131,6 +174,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTrigger.resx">
       <DependentUpon>FormTrigger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelDbCreate.resx">
+      <DependentUpon>PanelDbCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelDbView.resx">
+      <DependentUpon>PanelDbView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelProcedure.resx">
+      <DependentUpon>PanelProcedure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelSql.resx">
+      <DependentUpon>PanelSql.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelTableCreate.resx">
+      <DependentUpon>PanelTableCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelTableData.resx">
+      <DependentUpon>PanelTableData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelTableList.resx">
+      <DependentUpon>PanelTableList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PanelTrigger.resx">
+      <DependentUpon>PanelTrigger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -205,6 +272,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\show.png" />
+    <None Include="Resources\no_entry.png" />
+    <None Include="Resources\circled_play.png" />
+    <None Include="Resources\search.png" />
     <None Include="Resources\icon.png" />
     <None Include="Resources\b_trigger_add.png" />
     <None Include="Resources\b_routine_add.png" />

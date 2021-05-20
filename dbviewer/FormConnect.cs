@@ -57,11 +57,11 @@ namespace dbviewer
         }
         public string Username
         {
-            get { return input_user.Text; }
+            get { return input_user.Text.Trim(); }
         }
         public string Password
         {
-            get { return input_pass.Text; }
+            get { return input_pass.Text.Trim(); }
         }
         public string Status
         {
@@ -72,11 +72,20 @@ namespace dbviewer
         {
             if (save_login_check.Checked)
             {
-                string[] words = input_host.Text.Split(new char[] { ':' });
+                string[] words = input_host.Text.Trim().Split(new char[] { ':' });
                 string file = words[0];
-                if (words.Length == 1) file += "\n3306";
-                if (words.Length == 2) file += "\n" + words[1];
-                file += "\n" + input_user.Text + "\n" + input_pass.Text;
+                host = words[0].Trim();
+                if (words.Length == 1)
+                {
+                    file += "\n3306";
+                    port = "3306";
+                }
+                if (words.Length == 2)
+                {
+                    file += "\n" + words[1].Trim();
+                    port = words[1].Trim();
+                }
+                file += "\n" + input_user.Text.Trim() + "\n" + input_pass.Text.Trim();
                 try
                 {
                     using (StreamWriter sw = new StreamWriter("auth", false, System.Text.Encoding.UTF8))
@@ -91,6 +100,16 @@ namespace dbviewer
             }
             ClickedButton = true;
             Close();
+        }
+
+        private void button1_MouseDown(object sender, MouseEventArgs e)
+        {
+            input_pass.UseSystemPasswordChar = false;
+        }
+
+        private void button1_MouseUp(object sender, MouseEventArgs e)
+        {
+            input_pass.UseSystemPasswordChar = true;
         }
     }
 }
