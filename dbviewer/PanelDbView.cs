@@ -41,9 +41,10 @@ namespace dbviewer
             Panel_Sql.OnQuery += OnQuery_ChangePanel;
             Panel_TableCreate.OnTableCreate += OnTableCreate_ChangePanel;
             Panel_TableList.OnTableDelete += OnTableCreate_ChangePanel;
+            Panel_TableList.OnTableClick += OnTableClick_ChangePanel;
         }
 
-        public void test1(TreeView db_tree_list)
+        public void UpdateDbTableTree(TreeView db_tree_list)
         {
             this.db_tree_list = db_tree_list;
             ChangePanel(Panel_TableList);
@@ -63,11 +64,11 @@ namespace dbviewer
             }
         }
 
-        public void test2(string text)
+        public void ClickTableOnTree(string table_name)
         {
             ChangePanel(Panel_TableData);
-            Panel_TableData.ReadIntoTable("SELECT * FROM `" + text + "`", text);
-            Logger.Log("SELECT * FROM `" + text + "`");
+            Panel_TableData.ReadIntoTable("SELECT * FROM `" + table_name + "`", table_name);
+            Logger.Log("SELECT * FROM `" + table_name + "`");
         }
 
         private void ChangePanel(Control panel)
@@ -93,7 +94,23 @@ namespace dbviewer
 
         private void OnTableCreate_ChangePanel()
         {
-            test1(db_tree_list);
+            UpdateDbTableTree(db_tree_list);
+        }
+
+        private void OnTableClick_ChangePanel(string table_name)
+        {
+            TreeNode db_node;
+            if (db_tree_list.SelectedNode.Parent == null) db_node = db_tree_list.SelectedNode;
+            else db_node = db_tree_list.SelectedNode.Parent;
+            for (int i = 0; i < db_node.Nodes.Count; i++)
+            {
+                if (db_node.Nodes[i].Text == table_name)
+                {
+                    db_tree_list.SelectedNode = db_node.Nodes[i];
+                    ClickTableOnTree(table_name);
+                    return;
+                }
+            }
         }
 
         private void OnPocedureRun_ChangePanel()
@@ -233,7 +250,7 @@ namespace dbviewer
             string sql_text = "DROP TABLE `" + db_tree_list.SelectedNode.Text + "`";
             if (DB.Write(sql_text))
             {
-                test1(db_tree_list);
+                UpdateDbTableTree(db_tree_list);
                 Logger.Log(sql_text);
             }
             else

@@ -107,12 +107,12 @@ namespace dbviewer
             if (e.Action != TreeViewAction.Collapse && e.Action != TreeViewAction.Expand && e.Node.Parent == null)
             {
                 DB.SelectDB(e.Node.Text);
-                Panel_DbView.test1(db_tree_list);
+                Panel_DbView.UpdateDbTableTree(db_tree_list);
             }
             else
             {
                 DB.SelectDB(e.Node.Parent.Text);
-                Panel_DbView.test2(e.Node.Text);
+                Panel_DbView.ClickTableOnTree(e.Node.Text);
             }
         }
 
@@ -156,7 +156,7 @@ namespace dbviewer
         private void restore_complete(object sender, ImportCompleteArgs e)
         {
             Cursor = Cursors.Default;
-            Panel_DbView.test1(db_tree_list);
+            Panel_DbView.UpdateDbTableTree(db_tree_list);
             InfoShow.Alert("Восстановление завершено");
             Logger.Log("Восстановление завершено (" + e.TimeUsed.ToString() + ") " + e.LastError);
         }

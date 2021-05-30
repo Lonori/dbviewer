@@ -16,7 +16,9 @@ namespace dbviewer
         private InfoShow Logger;
 
         public delegate void EventOnTableDelete();
+        public delegate void EventOnTableClick(string table_name);
         public event EventOnTableDelete OnTableDelete;
+        public event EventOnTableClick OnTableClick;
 
         public PanelTableList(DBtool database, InfoShow logger)
         {
@@ -27,6 +29,12 @@ namespace dbviewer
                 new string[] { "Таблица", "Сравнение", "Тип", "Строки", "Действия" },
                 new float[] { 30, 26, 12, 12, 20 }
             );
+            table_tablelist.RowClick += ClickTable;
+        }
+
+        public void ClickTable(int ind, Control[] row)
+        {
+            OnTableClick?.Invoke(((NoEventLabel)row[0]).Text);
         }
 
         public void AddRow(string table_name, string v1, string v2, string v3)

@@ -39,17 +39,7 @@
             this.proc_type = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.proc_table_params = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.table1 = new dbviewer.Table();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.proc_add_param = new System.Windows.Forms.Button();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -67,8 +57,6 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.proc_table_params.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
@@ -198,7 +186,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 136F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.table1, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 80);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
@@ -222,162 +210,18 @@
             this.label3.Text = "Параметры";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panel1
+            // table1
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.proc_table_params);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(136, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(548, 107);
-            this.panel1.TabIndex = 9;
-            // 
-            // proc_table_params
-            // 
-            this.proc_table_params.ColumnCount = 5;
-            this.proc_table_params.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22F));
-            this.proc_table_params.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22F));
-            this.proc_table_params.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.proc_table_params.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            this.proc_table_params.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            this.proc_table_params.Controls.Add(this.label4, 0, 0);
-            this.proc_table_params.Controls.Add(this.comboBox3, 0, 1);
-            this.proc_table_params.Controls.Add(this.textBox3, 1, 1);
-            this.proc_table_params.Controls.Add(this.comboBox4, 2, 1);
-            this.proc_table_params.Controls.Add(this.textBox4, 3, 1);
-            this.proc_table_params.Controls.Add(this.button3, 4, 1);
-            this.proc_table_params.Controls.Add(this.label8, 1, 0);
-            this.proc_table_params.Controls.Add(this.label9, 2, 0);
-            this.proc_table_params.Controls.Add(this.label10, 3, 0);
-            this.proc_table_params.Dock = System.Windows.Forms.DockStyle.Top;
-            this.proc_table_params.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.proc_table_params.Location = new System.Drawing.Point(0, 0);
-            this.proc_table_params.Margin = new System.Windows.Forms.Padding(0);
-            this.proc_table_params.Name = "proc_table_params";
-            this.proc_table_params.RowCount = 2;
-            this.proc_table_params.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.proc_table_params.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.proc_table_params.Size = new System.Drawing.Size(548, 69);
-            this.proc_table_params.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Margin = new System.Windows.Forms.Padding(0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 30);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Направление";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.ItemHeight = 21;
-            this.comboBox3.Items.AddRange(new object[] {
-            "IN",
-            "OUT",
-            "INOUT"});
-            this.comboBox3.Location = new System.Drawing.Point(4, 35);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 4);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(112, 29);
-            this.comboBox3.TabIndex = 1;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Location = new System.Drawing.Point(124, 35);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(112, 28);
-            this.textBox3.TabIndex = 2;
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "INT",
-            "FLOAT",
-            "VARCHAR",
-            "TEXT",
-            "DATE"});
-            this.comboBox4.Location = new System.Drawing.Point(244, 35);
-            this.comboBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 4);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(101, 29);
-            this.comboBox4.TabIndex = 3;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Location = new System.Drawing.Point(353, 35);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(90, 28);
-            this.textBox4.TabIndex = 4;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Image = global::dbviewer.Properties.Resources.b_drop;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(451, 34);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(86, 31);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "удалить";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(120, 0);
-            this.label8.Margin = new System.Windows.Forms.Padding(0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(120, 30);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "Имя";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(240, 0);
-            this.label9.Margin = new System.Windows.Forms.Padding(0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(109, 30);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Тип";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(349, 0);
-            this.label10.Margin = new System.Windows.Forms.Padding(0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(98, 30);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Размер";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.table1.BackColor = System.Drawing.Color.White;
+            this.table1.ColorHeader = System.Drawing.SystemColors.ActiveCaption;
+            this.table1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.table1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.table1.HeaderHeight = 30;
+            this.table1.Location = new System.Drawing.Point(136, 0);
+            this.table1.Margin = new System.Windows.Forms.Padding(0);
+            this.table1.Name = "table1";
+            this.table1.Size = new System.Drawing.Size(548, 107);
+            this.table1.TabIndex = 1;
             // 
             // tableLayoutPanel5
             // 
@@ -561,11 +405,10 @@
             this.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FormProcedure";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Процедура";
-            this.Load += new System.EventHandler(this.FormProcedure_Load);
             this.panel_main.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -574,9 +417,6 @@
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.proc_table_params.ResumeLayout(false);
-            this.proc_table_params.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
@@ -612,16 +452,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox proc_access_sql;
         private System.Windows.Forms.Button proc_button_create;
-        private System.Windows.Forms.TableLayoutPanel proc_table_params;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panel1;
+        private Table table1;
     }
 }

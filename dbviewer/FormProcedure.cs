@@ -6,30 +6,34 @@ namespace dbviewer
 {
     public partial class FormProcedure : Form
     {
-        private Table_ProcedureParams ct_params;
         private DBtool DB;
-        private string sql = "";
+        private string _Sql = "";
 
         public string Sql
         {
-            get { return sql; }
+            get { return _Sql; }
         }
 
         public FormProcedure(DBtool DB)
         {
             this.DB = DB;
             InitializeComponent();
+            table1.TableInit(
+                new string[] { "Направление", "Имя", "Тип", "Размер", "" },
+                new float[] { 20, 20, 20, 20, 20 }
+            );
+            AddRow();
         }
 
-        private void FormProcedure_Load(object sender, EventArgs e)
+        public void AddRow()
         {
-            ct_params = new Table_ProcedureParams(proc_table_params);
-            ct_params.HeaderColor = Color.Transparent;
-            ct_params.RowHeight = 38;
-            ct_params.Clear();
-            ct_params.AddRow();
-            proc_type.SelectedIndex = 0;
-            proc_access_sql.SelectedIndex = 0;
+            table1.AddRow(new Control[] {
+                create_combobox_table(new object[] {"IN","OUT","INOUT"}),
+                create_textbox_table(),
+                create_combobox_table(new object[] { "INT", "FLOAT", "VARCHAR", "TEXT", "DATE" }),
+                create_textbox_table(),
+                create_button_table(table1.Length)
+            });
         }
 
         private void proc_button_create_Click(object sender, EventArgs e)
@@ -41,30 +45,30 @@ namespace dbviewer
                 return;
             }
             sql += " `" + proc_name.Text + "`(";
-            for (int i = 0; i < ct_params.Length; i++)
+            for (int i = 0; i < table1.Length; i++)
             {
-                sql += ((ComboBox)ct_params[i][0]).Text;
-                if (((TextBox)ct_params[i][1]).TextLength == 0)
+                sql += ((ComboBox)table1[i][0]).Text;
+                if (((TextBox)table1[i][1]).TextLength == 0)
                 {
                     InfoShow.Warning("Не указано имя переменной");
-                    ((TextBox)ct_params[i][1]).Focus();
+                    ((TextBox)table1[i][1]).Focus();
                     return;
                 }
-                sql += " `" + ((TextBox)ct_params[i][1]).Text + "` " + ((ComboBox)ct_params[i][2]).Text;
-                if (((TextBox)ct_params[i][3]).TextLength > 0)
+                sql += " `" + ((TextBox)table1[i][1]).Text + "` " + ((ComboBox)table1[i][2]).Text;
+                if (((TextBox)table1[i][3]).TextLength > 0)
                 {
                     try
                     {
-                        sql += "(" + int.Parse(((TextBox)ct_params[i][3]).Text) + ")";
+                        sql += "(" + int.Parse(((TextBox)table1[i][3]).Text) + ")";
                     }
                     catch
                     {
                         InfoShow.Warning("Неверно указан размер поля");
-                        ((TextBox)ct_params[i][3]).Focus();
+                        ((TextBox)table1[i][3]).Focus();
                         return;
                     }
                 }
-                if (i < ct_params.Length - 1) sql += ",";
+                if (i < table1.Length - 1) sql += ",";
             }
             sql += ")";
             if (!proc_resul_type.Checked) sql += " NOT";
@@ -79,13 +83,63 @@ namespace dbviewer
                 InfoShow.Error(DB.Error);
                 return;
             }
-            this.sql = sql;
+            this._Sql = sql;
             Close();
         }
 
         private void proc_add_param_Click(object sender, EventArgs e)
         {
-            ct_params.AddRow();
+            AddRow();
+        }
+
+        private ComboBox create_combobox_table(object[] collection)
+        {
+            ComboBox elem = new ComboBox()
+            {
+                Dock = DockStyle.Fill,
+                DropDownStyle = ComboBoxStyle.DropDownList,
+                FormattingEnabled = true,
+                Margin = new Padding(4, 5, 4, 4)
+            };
+            elem.Items.AddRange(collection);
+            elem.SelectedIndex = 0;
+            return elem;
+        }
+
+        private TextBox create_textbox_table()
+        {
+            return new TextBox()
+            {
+                Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                BorderStyle = BorderStyle.FixedSingle,
+                Margin = new Padding(4)
+            };
+        }
+
+        private Button create_button_table(int num_row)
+        {
+            Button elem = new Button()
+            {
+                Anchor = AnchorStyles.Left,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Microsoft Tai Le", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                Image = Properties.Resources.b_drop,
+                ImageAlign = ContentAlignment.MiddleLeft,
+                Margin = new Padding(4),
+                Size = new Size(86, 31),
+                Tag = num_row,
+                Text = "удалить",
+                TextAlign = ContentAlignment.MiddleRight
+            };
+            elem.Click += new EventHandler(remove_Click);
+            elem.FlatAppearance.BorderSize = 0;
+            return elem;
+        }
+
+        private void remove_Click(object sender, EventArgs e)
+        {
+            table1.RemoveAt((int)((Button)sender).Tag);
+            for (int i = 0; i < table1.Length; i++) ((Button)table1[i][4]).Tag = i;
         }
     }
 }

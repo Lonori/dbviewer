@@ -33,7 +33,7 @@ namespace dbviewer
         {
             get
             {
-                if (index < 0 || index > rows.Count) throw new Exception("Invalid index (" + index + ")");
+                if (0 > index || index > rows.Count) throw new IndexOutOfRangeException();
                 return rows[index];
             }
         }
@@ -234,8 +234,11 @@ namespace dbviewer
             };
             table_row.Click += new EventHandler(TableRow_Click);
             table_row.DoubleClick += new EventHandler(TableRow_DoubleClick);
-            table_row.MouseEnter += new EventHandler(TableBody_MouseEnter);
-            table_row.MouseLeave += new EventHandler(TableBody_MouseLeave);
+            if (_Hoverable)
+            {
+                table_row.MouseEnter += new EventHandler(TableBody_MouseEnter);
+                table_row.MouseLeave += new EventHandler(TableBody_MouseLeave);
+            }
             table_row.RowCount = 1;
             table_row.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             table_row.ColumnCount = column_amount;
@@ -255,6 +258,16 @@ namespace dbviewer
         {
             row_amount = 0;
             ColumnRows.Controls.Clear();
+            ColumnRows.RowCount = 0;
+            rows.Clear();
+        }
+
+        public void RemoveAt(int index)
+        {
+            if (0 > index || index > rows.Count) throw new IndexOutOfRangeException();
+            ColumnRows.Controls.RemoveAt(index);
+            ColumnRows.ColumnCount = rows.Count - 1;
+            rows.RemoveAt(index);
         }
 
         private void TableRow_Click(object sender, EventArgs e)
@@ -265,20 +278,18 @@ namespace dbviewer
 
         private void TableRow_DoubleClick(object sender, EventArgs e)
         {
-            int row_num = ColumnRows.GetCellPosition((TableLayoutPanel)sender).Row;
+            int row_num = ColumnRows.GetRow((TableLayoutPanel)sender);
             RowDoubleClick?.Invoke(row_num, rows[row_num]);
         }
 
         private void TableBody_MouseEnter(object sender, EventArgs e)
         {
-            if (!_Hoverable) return;
             TableLayoutPanel row = (TableLayoutPanel)sender;
             row.BackColor = _ColorRowHover;
         }
 
         private void TableBody_MouseLeave(object sender, EventArgs e)
         {
-            if (!_Hoverable) return;
             TableLayoutPanel row = (TableLayoutPanel)sender;
             row.BackColor = ColumnRows.GetRow(row) % 2 == 0 ? _ColorRowEven : _ColorRowOdd;
         }
