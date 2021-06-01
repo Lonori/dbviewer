@@ -13,12 +13,12 @@ namespace dbviewer
     public partial class PanelDbCreate : UserControl
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
         public delegate void EventOnDbCreate();
         public event EventOnDbCreate OnDbCreate;
 
-        public PanelDbCreate(DBtool database, InfoShow logger)
+        public PanelDbCreate(DBtool database, Logger logger)
         {
             DB = database;
             Logger = logger;
@@ -29,7 +29,7 @@ namespace dbviewer
         {
             if (name_new_db.TextLength == 0)
             {
-                InfoShow.Warning("Имя базы данных не может быть пустым");
+                Logger.Warning("Имя базы данных не может быть пустым");
                 return;
             }
             if (DB.Write("CREATE DATABASE `" + name_new_db.Text + "` charset=utf8mb4"))
@@ -41,7 +41,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка создания базы данных");
+                Logger.Error("Ошибка создания базы данных");
                 Logger.Log(DB.Error);
             }
         }

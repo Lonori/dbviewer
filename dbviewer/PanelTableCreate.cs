@@ -13,12 +13,12 @@ namespace dbviewer
     public partial class PanelTableCreate : UserControl
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
         public delegate void EventOnTableCreate();
         public event EventOnTableCreate OnTableCreate;
 
-        public PanelTableCreate(DBtool database, InfoShow logger)
+        public PanelTableCreate(DBtool database, Logger logger)
         {
             DB = database;
             Logger = logger;
@@ -76,14 +76,14 @@ namespace dbviewer
         {
             if (textbox_table_name.TextLength == 0)
             {
-                InfoShow.Warning("Название таблицы не может быть пустым");
+                Logger.Warning("Название таблицы не может быть пустым");
                 return;
             }
             int amount = 0;
             for (int i = 0; i < table1.Length; i++) if (table1[i][0].Text.Length > 0) amount++;
             if (amount <= 0)
             {
-                InfoShow.Warning("Таблица не содержит ни одного поля");
+                Logger.Warning("Таблица не содержит ни одного поля");
                 return;
             }
             List<string> ind_primary = new List<string>();
@@ -101,7 +101,7 @@ namespace dbviewer
                     }
                     catch
                     {
-                        InfoShow.Warning("Неверно указан размер поля");
+                        Logger.Warning("Неверно указан размер поля");
                         return;
                     }
                 }
@@ -126,7 +126,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка создания таблицы");
+                Logger.Error("Ошибка создания таблицы");
                 Logger.Log(DB.Error);
             }
         }

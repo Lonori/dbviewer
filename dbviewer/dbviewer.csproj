@@ -156,7 +156,7 @@
     </Compile>
     <Compile Include="DBtool.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="InfoShow.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormProcedure.resx">
       <DependentUpon>FormProcedure.cs</DependentUpon>

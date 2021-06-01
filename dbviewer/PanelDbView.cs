@@ -14,7 +14,7 @@ namespace dbviewer
     public partial class PanelDbView : UserControl
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
         private TreeView db_tree_list;
 
@@ -26,7 +26,7 @@ namespace dbviewer
         private PanelTrigger Panel_Trigger;
 
 
-        public PanelDbView(DBtool database, InfoShow logger)
+        public PanelDbView(DBtool database, Logger logger)
         {
             DB = database;
             Logger = logger;
@@ -167,7 +167,7 @@ namespace dbviewer
         {
             if (db_tree_list.SelectedNode.Parent == null)
             {
-                InfoShow.Alert("Пока не арбайтен");
+                Logger.Info("Пока не арбайтен");
             }
             else
             {
@@ -246,7 +246,7 @@ namespace dbviewer
 
         private void tool_panel_tsb9_Click(object sender, EventArgs e)
         {
-            if (!InfoShow.Confirm("Вы действительно хотите удалить данную таблицу?")) return;
+            if (!Logger.Confirm("Вы действительно хотите удалить данную таблицу?")) return;
             string sql_text = "DROP TABLE `" + db_tree_list.SelectedNode.Text + "`";
             if (DB.Write(sql_text))
             {
@@ -255,7 +255,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка удаления таблицы");
+                Logger.Error("Ошибка удаления таблицы");
                 Logger.Log(DB.Error);
                 return;
             }
@@ -263,14 +263,14 @@ namespace dbviewer
 
         private void tool_panel_tsb10_Click(object sender, EventArgs e)
         {
-            if (!InfoShow.Confirm("Вы действительно хотите удалить данную базу данных?")) return;
+            if (!Logger.Confirm("Вы действительно хотите удалить данную базу данных?")) return;
             if (DB.Write("DROP DATABASE `" + db_tree_list.SelectedNode.Text + "`"))
             {
                 Logger.Log("DROP DATABASE `" + db_tree_list.SelectedNode.Text + "`");
             }
             else
             {
-                InfoShow.Error("Ошибка удаления базы данных");
+                Logger.Error("Ошибка удаления базы данных");
                 Logger.Log(DB.Error);
                 return;
             }

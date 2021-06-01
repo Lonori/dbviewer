@@ -16,15 +16,11 @@ namespace dbviewer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            FormMain form = new FormMain();
-            if (form == null || form.IsDisposed)
-            {
-                Application.Exit();
-            }
+            FormMain formMain = new FormMain();
+            if (formMain != null && !formMain.IsDisposed)
+                Application.Run(formMain);
             else
-            {
-                Application.Run(form);
-            }
+                Application.Exit();
         }
     }
 }

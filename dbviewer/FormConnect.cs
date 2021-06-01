@@ -6,9 +6,12 @@ namespace dbviewer
 {
     public partial class FormConnect : Form
     {
-        private string host;
-        private string port;
-        public bool ClickedButton = false;
+        private DBtool _DBConnection;
+
+        public DBtool DBConnection
+        {
+            get { return _DBConnection; }
+        }
 
         public FormConnect()
         {
@@ -25,11 +28,9 @@ namespace dbviewer
                         {
                             case 1:
                                 input_host.Text = line;
-                                host = line;
                                 break;
                             case 2:
                                 if (line != "3306") input_host.Text += ":" + line;
-                                port = line;
                                 break;
                             case 3:
                                 input_user.Text = line;
@@ -47,59 +48,64 @@ namespace dbviewer
             { }
         }
 
-        public string Hostname
-        {
-            get { return host; }
-        }
-        public string Port
-        {
-            get { return port; }
-        }
-        public string Username
-        {
-            get { return input_user.Text.Trim(); }
-        }
-        public string Password
-        {
-            get { return input_pass.Text.Trim(); }
-        }
-        public string Status
-        {
-            set { label_status.Text = value; }
-        }
-
         private void connect_Click(object sender, EventArgs e)
         {
+            string host;
+            string username;
+            string password;
+            int port;
+
+            string[] host_arr = input_host.Text.Trim().Split(new char[] { ':' });
+            switch (host_arr.Length)
+            {
+                case 1:
+                    port = 3306;
+                    break;
+                case 2:
+                    try
+                    {
+                        port = int.Parse(host_arr[1].Trim());
+                    }
+                    catch
+                    {
+                        Logger.Info("Неверный формат порта сервера");
+                        return;
+                    }
+                    break;
+                default:
+                    Logger.Info("Неверный формат адреса сервера");
+                    return;
+            }
+            host = host_arr[0].Trim();
+            username = input_user.Text.Trim();
+            password = input_pass.Text.Trim();
+
             if (save_login_check.Checked)
             {
-                string[] words = input_host.Text.Trim().Split(new char[] { ':' });
-                string file = words[0];
-                host = words[0].Trim();
-                if (words.Length == 1)
-                {
-                    file += "\n3306";
-                    port = "3306";
-                }
-                if (words.Length == 2)
-                {
-                    file += "\n" + words[1].Trim();
-                    port = words[1].Trim();
-                }
-                file += "\n" + input_user.Text.Trim() + "\n" + input_pass.Text.Trim();
+                string auth_file_data = host + "\n" + port + "\n" + username + "\n" + password;
                 try
                 {
                     using (StreamWriter sw = new StreamWriter("auth", false, System.Text.Encoding.UTF8))
                     {
-                        sw.WriteLine(file);
+                        sw.WriteLine(auth_file_data);
                     }
                 }
                 catch (Exception er)
                 {
-                    InfoShow.Error(er.Message);
+                    Logger.Error(er.Message);
                 }
             }
-            ClickedButton = true;
-            Close();
+
+            DBtool DBConnection = new DBtool(host, username, password, port);
+            if (DBConnection.ConnectError == "")
+            {
+                this._DBConnection = DBConnection;
+                Close();
+            }
+            else
+            {
+                label_status.Text = DBConnection.ConnectError;
+            }
         }
 
         private void button1_MouseDown(object sender, MouseEventArgs e)

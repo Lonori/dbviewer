@@ -13,14 +13,14 @@ namespace dbviewer
     public partial class PanelTableList : UserControl
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
         public delegate void EventOnTableDelete();
         public delegate void EventOnTableClick(string table_name);
         public event EventOnTableDelete OnTableDelete;
         public event EventOnTableClick OnTableClick;
 
-        public PanelTableList(DBtool database, InfoShow logger)
+        public PanelTableList(DBtool database, Logger logger)
         {
             DB = database;
             Logger = logger;
@@ -101,7 +101,7 @@ namespace dbviewer
 
         private void remove_Click(object sender, EventArgs e)
         {
-            if (!InfoShow.Confirm("Вы действительно хотите удалить данную таблицу?")) return;
+            if (!Logger.Confirm("Вы действительно хотите удалить данную таблицу?")) return;
             string sql_text = "DROP TABLE `" + ((Label)table_tablelist[(int)((Button)sender).Tag][0]).Text + "`";
             if (DB.Write(sql_text))
             {
@@ -110,7 +110,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка удаления таблицы");
+                Logger.Error("Ошибка удаления таблицы");
                 Logger.Log(DB.Error);
                 return;
             }

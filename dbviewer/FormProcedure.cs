@@ -41,7 +41,7 @@ namespace dbviewer
             string sql = "CREATE PROCEDURE";
             if (proc_name.TextLength == 0)
             {
-                InfoShow.Warning("Имя процедуры не может быть пустым");
+                Logger.Warning("Имя процедуры не может быть пустым");
                 return;
             }
             sql += " `" + proc_name.Text + "`(";
@@ -50,7 +50,7 @@ namespace dbviewer
                 sql += ((ComboBox)table1[i][0]).Text;
                 if (((TextBox)table1[i][1]).TextLength == 0)
                 {
-                    InfoShow.Warning("Не указано имя переменной");
+                    Logger.Warning("Не указано имя переменной");
                     ((TextBox)table1[i][1]).Focus();
                     return;
                 }
@@ -63,7 +63,7 @@ namespace dbviewer
                     }
                     catch
                     {
-                        InfoShow.Warning("Неверно указан размер поля");
+                        Logger.Warning("Неверно указан размер поля");
                         ((TextBox)table1[i][3]).Focus();
                         return;
                     }
@@ -74,13 +74,13 @@ namespace dbviewer
             if (!proc_resul_type.Checked) sql += " NOT";
             if (proc_body.TextLength == 0)
             {
-                InfoShow.Warning("Тело процедуры не может быть пустым");
+                Logger.Warning("Тело процедуры не может быть пустым");
                 return;
             }
             sql += " DETERMINISTIC " + proc_access_sql.Text + " SQL SECURITY INVOKER " + proc_body.Text;
             if (!DB.Write(sql))
             {
-                InfoShow.Error(DB.Error);
+                Logger.Error(DB.Error);
                 return;
             }
             this._Sql = sql;

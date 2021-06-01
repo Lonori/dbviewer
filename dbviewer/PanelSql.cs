@@ -13,12 +13,12 @@ namespace dbviewer
     public partial class PanelSql : UserControl
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
         public delegate void EventOnQuery();
         public event EventOnQuery OnQuery;
 
-        public PanelSql(DBtool database, InfoShow logger)
+        public PanelSql(DBtool database, Logger logger)
         {
             DB = database;
             Logger = logger;
@@ -29,7 +29,7 @@ namespace dbviewer
         {
             if(sql_input.Text == "")
             {
-                InfoShow.Warning("Поле запроса не может быть пустым");
+                Logger.Warning("Поле запроса не может быть пустым");
                 return;
             }
             SqlQueryStatus result = DB.ReadIntoCache(sql_input.Text);
@@ -40,7 +40,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка запроса");
+                Logger.Error("Ошибка запроса");
                 Logger.Log(DB.Error);
             }
         }

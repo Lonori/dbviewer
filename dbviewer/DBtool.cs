@@ -7,64 +7,75 @@ namespace dbviewer
 {
     public class DBtool
     {
-        private MySqlConnection conn;
+        private MySqlConnection connection;
         private MySqlDataAdapter data_adapter;
         private MySqlCommandBuilder command_builder;
         private DataSet data_cache;
-        private int affected_rows = 0;
-        private string connect_error = "";
-        private string error = "";
+        private int _AffectedRows = 0;
+        private string _ConnectError = "";
+        private string _Error = "";
+        private int _Port;
 
         private DBtool(string connectionString)
         {
             try
             {
-                conn = new MySqlConnection(connectionString);
-                conn.Open();
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
                 data_adapter = new MySqlDataAdapter();
                 command_builder = new MySqlCommandBuilder(data_adapter);
                 data_cache = new DataSet();
             }
             catch (Exception e)
             {
-                connect_error = e.Message;
+                _ConnectError = e.Message;
             }
         }
-        public DBtool(string host, string username, string passwd) :
-        this("Server=" + host + ";port=3306;User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
+
+        public DBtool(string host, string username, string passwd) : this(host, username, passwd, 3306)
         { }
+
         public DBtool(string host, string username, string passwd, int port) :
         this("Server=" + host + ";port=" + port + ";User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
-        { }
+        {
+            _Port = port;
+        }
 
         public int AffectedRows
         {
-            get { return affected_rows; }
+            get { return _AffectedRows; }
         }
         public string ConnectError
         {
-            get { return connect_error; }
+            get { return _ConnectError; }
         }
         public string Database
         {
-            get { return conn.Database; }
+            get { return connection.Database; }
         }
         public string Error
         {
-            get { return error; }
+            get { return _Error; }
         }
         public string HostInfo
         {
-            get { return conn.DataSource; }
+            get { return connection.DataSource; }
         }
+        public int Port
+        {
+            get { return _Port; }
+        }
+
+        public delegate void backupComplete(object sender, ExportCompleteArgs e);
+        public delegate void restoreComplete(object sender, ImportCompleteArgs e);
 
         public event backupComplete BackupComplete;
         public event restoreComplete RestoreComplete;
 
         public void Close()
         {
-            conn.Close();
-            conn.Dispose();
+            connection.Close();
+            connection.Dispose();
         }
 
         public bool ReadFromCache(DataGridView dataGrid)
@@ -82,18 +93,17 @@ namespace dbviewer
             try
             {
                 data_cache.Tables.Clear();
-                data_adapter.SelectCommand = new MySqlCommand(query, conn);
+                data_adapter.SelectCommand = new MySqlCommand(query, connection);
                 data_adapter.Fill(data_cache);
                 if (data_cache.Tables.Count > 0)
                 {
-                    //data_grid.DataSource = data_cache.Tables[0];
                     return SqlQueryStatus.Ok;
                 }
                 return SqlQueryStatus.NonQuery;
             }
             catch (Exception e)
             {
-                error = e.Message;
+                _Error = e.Message;
             }
             return SqlQueryStatus.Error;
         }
@@ -114,7 +124,7 @@ namespace dbviewer
             }
             catch (Exception e)
             {
-                error = e.Message;
+                _Error = e.Message;
             }
             return false;
         }
@@ -123,12 +133,12 @@ namespace dbviewer
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlCommand cmd = new MySqlCommand(query, connection);
                 return cmd.ExecuteReader();
             }
             catch (Exception e)
             {
-                error = e.Message;
+                _Error = e.Message;
             }
             return null;
         }
@@ -137,13 +147,13 @@ namespace dbviewer
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                affected_rows = cmd.ExecuteNonQuery();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                _AffectedRows = cmd.ExecuteNonQuery();
                 return true;
             }
             catch (Exception e)
             {
-                error = e.Message;
+                _Error = e.Message;
             }
             return false;
         }
@@ -152,12 +162,12 @@ namespace dbviewer
         {
             try
             {
-                conn.ChangeDatabase(dbname);
+                connection.ChangeDatabase(dbname);
                 return true;
             }
             catch (Exception e)
             {
-                error = e.Message;
+                _Error = e.Message;
             }
             return false;
         }
@@ -168,7 +178,7 @@ namespace dbviewer
             {
                 using (MySqlBackup mb = new MySqlBackup(cmd))
                 {
-                    cmd.Connection = conn;
+                    cmd.Connection = connection;
                     mb.ExportCompleted += backup_complete;
                     mb.ExportToFile(file_path);
                 }
@@ -181,7 +191,7 @@ namespace dbviewer
             {
                 using (MySqlBackup mb = new MySqlBackup(cmd))
                 {
-                    cmd.Connection = conn;
+                    cmd.Connection = connection;
                     mb.ImportCompleted += restore_complete;
                     mb.ImportFromFile(file_path);
                 }
@@ -197,9 +207,6 @@ namespace dbviewer
         {
             RestoreComplete?.Invoke(sender, e);
         }
-
-        public delegate void backupComplete(object sender, ExportCompleteArgs e);
-        public delegate void restoreComplete(object sender, ImportCompleteArgs e);
     }
 
     public enum SqlQueryStatus

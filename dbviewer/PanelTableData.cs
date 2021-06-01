@@ -14,14 +14,14 @@ namespace dbviewer
     public partial class PanelTableData : UserControl
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
         public DataGridView DataGrid
         {
             get { return table_query_result; }
         }
 
-        public PanelTableData(DBtool database, InfoShow logger)
+        public PanelTableData(DBtool database, Logger logger)
         {
             DB = database;
             Logger = logger;
@@ -72,7 +72,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка сохранения");
+                Logger.Error("Ошибка сохранения");
                 Logger.Log(DB.Error);
             }
         }
@@ -83,7 +83,7 @@ namespace dbviewer
             table_query_result.CurrentCell = null;
             if (DB.HasChanges())
             {
-                switch (InfoShow.ConfirmCancellation("Есть несохраненные изменения. Сохранить изменения перед выходом?"))
+                switch (Logger.ConfirmCancel("Есть несохраненные изменения. Сохранить изменения перед выходом?"))
                 {
                     case 1: break;
                     case 2:
@@ -93,7 +93,7 @@ namespace dbviewer
                         }
                         else
                         {
-                            InfoShow.Error("Ошибка сохранения");
+                            Logger.Error("Ошибка сохранения");
                             Logger.Log(DB.Error);
                             return false;
                         }
@@ -112,7 +112,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error(e.Exception.Message);
+                Logger.Error(e.Exception.Message);
             }
         }
     }

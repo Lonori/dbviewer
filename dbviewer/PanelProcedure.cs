@@ -14,12 +14,12 @@ namespace dbviewer
     public partial class PanelProcedure : UserControl
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
         public delegate void EventOnProcedureRun();
         public event EventOnProcedureRun OnProcedureRun;
 
-        public PanelProcedure(DBtool database, InfoShow logger)
+        public PanelProcedure(DBtool database, Logger logger)
         {
             DB = database;
             Logger = logger;
@@ -102,13 +102,13 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка запроса");
+                Logger.Error("Ошибка запроса");
                 Logger.Log(DB.Error);
             }
         }
         private void click_remove(object sender, EventArgs e)
         {
-            if (!InfoShow.Confirm("Вы действительно хотите удалить данную процедуру?")) return;
+            if (!Logger.Confirm("Вы действительно хотите удалить данную процедуру?")) return;
             string sql_text = "DROP PROCEDURE `" + ((Label)table_procedure[(int)((Button)sender).Tag][0]).Text + "`";
             if (DB.Write(sql_text))
             {
@@ -117,7 +117,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка удаления процедуры");
+                Logger.Error("Ошибка удаления процедуры");
                 Logger.Log(DB.Error);
                 return;
             }

@@ -33,7 +33,7 @@ namespace dbviewer
             {
                 if (!reader.HasRows)
                 {
-                    InfoShow.Error("В выбранной базе данных нет таблиц");
+                    Logger.Error("В выбранной базе данных нет таблиц");
                     Close();
                     return;
                 }
@@ -52,7 +52,7 @@ namespace dbviewer
             string sql = "CREATE TRIGGER";
             if (trig_name.TextLength == 0)
             {
-                InfoShow.Warning("Имя триггера не может быть пустым");
+                Logger.Warning("Имя триггера не может быть пустым");
                 return;
             }
             sql += " `" + trig_name.Text + "` " +
@@ -61,13 +61,13 @@ namespace dbviewer
                 trig_table.Text + "` FOR EACH ROW";
             if (trig_body.TextLength == 0)
             {
-                InfoShow.Warning("Тело триггера не может быть пустым");
+                Logger.Warning("Тело триггера не может быть пустым");
                 return;
             }
             sql += " " + trig_body.Text;
             if (!DB.Write(sql))
             {
-                InfoShow.Error(DB.Error);
+                Logger.Error(DB.Error);
                 return;
             }
             this.sql = sql;

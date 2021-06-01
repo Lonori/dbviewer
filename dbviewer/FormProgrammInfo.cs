@@ -8,6 +8,7 @@ namespace dbviewer
         public FormProgrammInfo()
         {
             InitializeComponent();
+            valueVersion.Text = Application.ProductVersion;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

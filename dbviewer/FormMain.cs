@@ -9,56 +9,41 @@ namespace dbviewer
     public partial class FormMain : Form
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
         private PanelDbView Panel_DbView;
         
         public FormMain()
         {
-            FormConnect form_connect = new FormConnect();
-            bool connected = false;
-            string host;
-            string port;
-            do
-            {
-                form_connect.ShowDialog();
-                if (form_connect.ClickedButton)
-                {
-                    form_connect.ClickedButton = false;
-                }
-                else
-                {
-                    Dispose();
-                    return;
-                }
-
-                host = form_connect.Hostname;
-                port = form_connect.Port;
-                string username = form_connect.Username;
-                string password = form_connect.Password;
-
-                DB = new DBtool(host, username, password);
-                if (DB.ConnectError == "")
-                {
-                    connected = true;
-                }
-                else
-                {
-                    form_connect.Status = DB.ConnectError;
-                }
-            } while (connected != true);
-            form_connect.Dispose();
+            if (!Authorisation()) return;
 
             InitializeComponent();
 
-            Logger = new InfoShow(log_box);
-            Text = host + ":" + port + " | DB Viewer";
-            Logger.Log(host + ":" + port + " - Подключение успешно");
+            Logger = new Logger(log_box);
+            Text = DB.HostInfo + ":" + DB.Port + " | DB Viewer";
+            Logger.Log(DB.HostInfo + ":" + DB.Port + " - Подключение успешно");
 
             Panel_DbView = new PanelDbView(DB, Logger);
             Panel_DbView.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(Panel_DbView);
             UpdateDBTree();
+        }
+
+        private bool Authorisation()
+        {
+            FormConnect formConnect = new FormConnect();
+            formConnect.ShowDialog();
+            if(formConnect.DBConnection != null)
+            {
+                DB = formConnect.DBConnection;
+                formConnect.Dispose();
+                return true;
+            }
+            else
+            {
+                Dispose();
+                return false;
+            }
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -149,7 +134,7 @@ namespace dbviewer
         private void backup_complete(object sender, ExportCompleteArgs e)
         {
             Cursor = Cursors.Default;
-            InfoShow.Alert("Резервное копирование завершено");
+            Logger.Info("Резервное копирование завершено");
             Logger.Log("Резервное копирование завершено (" + e.TimeUsed.ToString("hh\\:mm\\:ss") + ") " + e.LastError);
         }
 
@@ -157,7 +142,7 @@ namespace dbviewer
         {
             Cursor = Cursors.Default;
             Panel_DbView.UpdateDbTableTree(db_tree_list);
-            InfoShow.Alert("Восстановление завершено");
+            Logger.Info("Восстановление завершено");
             Logger.Log("Восстановление завершено (" + e.TimeUsed.ToString() + ") " + e.LastError);
         }
     }

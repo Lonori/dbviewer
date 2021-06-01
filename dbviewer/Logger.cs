@@ -3,16 +3,16 @@ using System.Windows.Forms;
 
 namespace dbviewer
 {
-    public class InfoShow
+    public class Logger
     {
         private TextBox log_box;
 
-        public InfoShow(TextBox log_box)
+        public Logger(TextBox log_box)
         {
             this.log_box = log_box;
         }
 
-        public static void Alert(string message)
+        public static void Info(string message)
         {
             MessageBox.Show(
                 message,
@@ -21,35 +21,6 @@ namespace dbviewer
                 MessageBoxIcon.Information,
                 MessageBoxDefaultButton.Button1
             );
-        }
-
-        public static bool Confirm(string message)
-        {
-            switch (MessageBox.Show(message,
-                "Подтвердите действие",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2
-            ))
-            {
-                case DialogResult.Yes: return true;
-                default: return false;
-            }
-        }
-
-        public static int ConfirmCancellation(string message)
-        {
-            switch (MessageBox.Show(message,
-                "Подтвердите действие",
-                MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button3
-            ))
-            {
-                case DialogResult.Yes: return 2;
-                case DialogResult.No: return 1;
-                default: return 0;
-            }
         }
 
         public static void Error(string message)
@@ -72,6 +43,35 @@ namespace dbviewer
                 MessageBoxIcon.Warning,
                 MessageBoxDefaultButton.Button1
             );
+        }
+
+        public static bool Confirm(string message)
+        {
+            switch (MessageBox.Show(message,
+                "Подтвердите действие",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2
+            ))
+            {
+                case DialogResult.Yes: return true;
+                default: return false;
+            }
+        }
+
+        public static int ConfirmCancel(string message)
+        {
+            switch (MessageBox.Show(message,
+                "Подтвердите действие",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button3
+            ))
+            {
+                case DialogResult.Yes: return 2;
+                case DialogResult.No: return 1;
+                default: return 0;
+            }
         }
 
         public void Log(string message)

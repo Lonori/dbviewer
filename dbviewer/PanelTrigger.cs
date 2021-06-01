@@ -14,9 +14,9 @@ namespace dbviewer
     public partial class PanelTrigger : UserControl
     {
         private DBtool DB;
-        private InfoShow Logger;
+        private Logger Logger;
 
-        public PanelTrigger(DBtool database, InfoShow logger)
+        public PanelTrigger(DBtool database, Logger logger)
         {
             DB = database;
             Logger = logger;
@@ -89,7 +89,7 @@ namespace dbviewer
 
         private void click_remove(object sender, EventArgs e)
         {
-            if (!InfoShow.Confirm("Вы действительно хотите удалить данный триггер?")) return;
+            if (!Logger.Confirm("Вы действительно хотите удалить данный триггер?")) return;
             string sql_text = "DROP TRIGGER IF EXISTS `" + ((Label)table_trigger[(int)((Button)sender).Tag][0]).Text + "`";
             if (DB.Write(sql_text))
             {
@@ -98,7 +98,7 @@ namespace dbviewer
             }
             else
             {
-                InfoShow.Error("Ошибка удаления триггера");
+                Logger.Error("Ошибка удаления триггера");
                 Logger.Log(DB.Error);
                 return;
             }
