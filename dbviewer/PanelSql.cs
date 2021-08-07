@@ -13,7 +13,7 @@ namespace dbviewer
     public partial class PanelSql : UserControl
     {
         private DBtool DB;
-        private Logger Logger;
+        private Logger Lr;
 
         public delegate void EventOnQuery();
         public event EventOnQuery OnQuery;
@@ -21,7 +21,7 @@ namespace dbviewer
         public PanelSql(DBtool database, Logger logger)
         {
             DB = database;
-            Logger = logger;
+            Lr = logger;
             InitializeComponent();
         }
 
@@ -36,12 +36,12 @@ namespace dbviewer
             if (result != SqlQueryStatus.Error)
             {
                 if (result == SqlQueryStatus.Ok) OnQuery?.Invoke();
-                Logger.Log(sql_input.Text);
+                Lr.Log(sql_input.Text);
             }
             else
             {
                 Logger.Error("Ошибка запроса");
-                Logger.Log(DB.Error);
+                Lr.Log(DB.Error);
             }
         }
     }

@@ -1,7 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace dbviewer
@@ -12,7 +10,7 @@ namespace dbviewer
         private Logger Logger;
 
         private PanelDbView Panel_DbView;
-        
+
         public FormMain()
         {
             if (!Authorisation()) return;
@@ -33,7 +31,7 @@ namespace dbviewer
         {
             FormConnect formConnect = new FormConnect();
             formConnect.ShowDialog();
-            if(formConnect.DBConnection != null)
+            if (formConnect.DBConnection != null)
             {
                 DB = formConnect.DBConnection;
                 formConnect.Dispose();
@@ -84,7 +82,7 @@ namespace dbviewer
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             Panel_DbView.ChangeChecker();
-            if(!panelContainer.Controls[0].Equals(Panel_DbView))
+            if (!panelContainer.Controls[0].Equals(Panel_DbView))
             {
                 panelContainer.Controls.Clear();
                 panelContainer.Controls.Add(Panel_DbView);

@@ -55,6 +55,9 @@ namespace dbviewer
             string password;
             int port;
 
+            label_status.Text = "";
+            Cursor = Cursors.WaitCursor;
+
             string[] host_arr = input_host.Text.Trim().Split(new char[] { ':' });
             switch (host_arr.Length)
             {
@@ -99,11 +102,13 @@ namespace dbviewer
             DBtool DBConnection = new DBtool(host, username, password, port);
             if (DBConnection.ConnectError == "")
             {
+                Cursor = Cursors.Default;
                 this._DBConnection = DBConnection;
                 Close();
             }
             else
             {
+                Cursor = Cursors.Default;
                 label_status.Text = DBConnection.ConnectError;
             }
         }

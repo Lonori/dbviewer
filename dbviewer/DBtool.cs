@@ -36,7 +36,7 @@ namespace dbviewer
         { }
 
         public DBtool(string host, string username, string passwd, int port) :
-        this("Server=" + host + ";port=" + port + ";User Id=" + username + ";password=" + passwd + ";charset=utf8mb4;")
+        this("Server=" + host + "; Port=" + port + "; Uid=" + username + "; Pwd=" + passwd + "; CharSet=utf8mb4;")
         {
             _Port = port;
         }
